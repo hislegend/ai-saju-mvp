@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>무료 1분 사주 | UI 프리뷰</title>
+    <link rel="stylesheet" href="./assets/ui.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand-mark" href="./index.html">AI SAJU LAB</a>
+        <nav class="site-nav">
+          <a data-page href="./index.html">메인</a>
+          <a data-page href="./quick.html">무료 1분 사주</a>
+          <a data-page href="./premium-20022.html">프리미엄</a>
+          <a data-page href="./result.html">결과</a>
+          <a data-page href="./mypage.html">마이페이지</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="social-proof">
+      <div class="social-proof__inner">
+        <span class="social-dot"></span>
+        <strong>실시간 구매/조회</strong>
+        <span id="social-proof-text"></span>
+      </div>
+    </div>
+
+    <main>
+      <section class="section">
+        <div class="container grid grid-2">
+          <article class="card card-pad">
+            <p class="eyebrow">Quick Funnel</p>
+            <h1 class="section-title">무료 1분 사주</h1>
+            <p class="section-copy">결과는 즉시 생성되며, 연애/재물/관계/월별 포인트를 빠르게 확인할 수 있습니다.</p>
+            <div class="notice" style="margin-top:1rem;">무료 결과는 단기 보관 정책이 적용됩니다.</div>
+            <ul class="list-clean" style="margin-top:1rem;">
+              <li>핵심 한 줄 요약</li>
+              <li>강점 활용법 + 리스크 경고</li>
+              <li>이번 주 액션 3개</li>
+            </ul>
+          </article>
+
+          <article class="card card-pad">
+            <p class="eyebrow">Input</p>
+            <h2 class="section-title" style="margin-bottom:0.45rem;">무료 결과 생성</h2>
+            <p class="section-copy" style="margin-bottom:1rem;">최소 입력만으로 바로 리딩을 만들어드립니다.</p>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="label">이름</label>
+                <input class="input" type="text" placeholder="홍길동" value="홍길동" />
+              </div>
+              <div class="form-group">
+                <label class="label">성별</label>
+                <select class="select"><option>여성</option><option>남성</option><option>기타</option></select>
+              </div>
+              <div class="form-group">
+                <label class="label">달력 기준</label>
+                <select class="select"><option>양력</option><option>음력</option></select>
+              </div>
+              <div class="form-group">
+                <label class="label">생년월일</label>
+                <input class="input" type="date" value="1994-04-17" />
+              </div>
+              <div class="form-group">
+                <label class="label">태어난 시간</label>
+                <input class="input" type="time" value="08:30" />
+              </div>
+              <div class="form-group">
+                <label class="label">MBTI</label>
+                <select class="select"><option>모름 / 선택 안함</option><option selected>ENFP</option></select>
+              </div>
+              <div class="form-group span-2">
+                <label class="check-row"><input type="checkbox" /> 태어난 시간을 모릅니다.</label>
+                <label class="check-row"><input type="checkbox" checked /> 이벤트/프로모션 안내 수신 동의 (선택)</label>
+              </div>
+            </div>
+
+            <div class="card" style="padding:0.8rem;background:#f8f4ec;margin-top:0.85rem;">
+              <p class="label">MBTI 4문항 간이 진단 (UI)</p>
+              <p class="helper" style="margin:0 0 0.7rem;">모를 때만 사용. 결과 톤 개인화를 위한 임시 타입 산출.</p>
+              <div class="btn-row">
+                <button class="btn-ghost">E / I</button>
+                <button class="btn-ghost">S / N</button>
+                <button class="btn-ghost">T / F</button>
+                <button class="btn-ghost">J / P</button>
+              </div>
+            </div>
+
+            <div class="btn-row" style="margin-top:0.9rem;">
+              <button class="btn" data-fake-next="./result.html">무료 결과 생성</button>
+              <a class="btn-secondary" href="./premium-20022.html">프리미엄으로 이동</a>
+            </div>
+            <p class="helper" style="margin-top:0.6rem;">UI 프리뷰 모드: 버튼 클릭 시 샘플 결과 화면으로 이동합니다.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="site-footer__inner">무료 퍼널 UI 프리뷰</div></footer>
+    <script src="./assets/ui.js"></script>
+  </body>
+</html>

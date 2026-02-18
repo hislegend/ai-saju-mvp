@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이페이지 | UI 프리뷰</title>
+    <link rel="stylesheet" href="./assets/ui.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand-mark" href="./index.html">AI SAJU LAB</a>
+        <nav class="site-nav">
+          <a data-page href="./index.html">메인</a>
+          <a data-page href="./result.html">결과</a>
+          <a data-page href="./mypage.html">마이페이지</a>
+          <a data-page href="./login.html">로그인</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container grid" style="gap:1rem;">
+          <article class="card card-pad">
+            <p class="eyebrow">MyPage</p>
+            <h1 class="section-title">데모 사용자의 내역</h1>
+            <p class="section-copy">연락처: 01012341234 · 마케팅 동의: 예</p>
+          </article>
+
+          <article class="card card-pad">
+            <h2 class="section-title" style="font-size:1.2rem;">리딩 목록</h2>
+            <table class="table">
+              <thead>
+                <tr><th>생성일</th><th>이름</th><th>모드/상태</th><th>이동</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2026. 2. 18.</td><td>홍길동</td><td>PREMIUM / COMPLETED</td><td><a href="./result.html">결과 보기</a></td></tr>
+                <tr><td>2026. 2. 18.</td><td>김하늘</td><td>QUICK / CREATED</td><td><a href="./result.html">결과 보기</a></td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="card card-pad">
+            <h2 class="section-title" style="font-size:1.2rem;">결제 내역</h2>
+            <table class="table">
+              <thead>
+                <tr><th>생성일</th><th>주문번호</th><th>상태</th><th>금액</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2026. 2. 18.</td><td>ORD-1234-00001</td><td>PAID</td><td>16,000원</td></tr>
+                <tr><td>2026. 2. 18.</td><td>ORD-1234-00002</td><td>PENDING</td><td>19,000원</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="card card-pad">
+            <h2 class="section-title" style="font-size:1.2rem;">리딤 코드 이력</h2>
+            <table class="table">
+              <thead>
+                <tr><th>사용일</th><th>코드</th><th>휴대폰</th><th>결과</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2026. 2. 18.</td><td>VIP70004</td><td>01012341234</td><td><a href="./result.html">결과 이동</a></td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="site-footer__inner">마이페이지 UI 프리뷰</div></footer>
+    <script src="./assets/ui.js"></script>
+  </body>
+</html>

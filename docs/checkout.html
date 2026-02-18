@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>체크아웃 | UI 프리뷰</title>
+    <link rel="stylesheet" href="./assets/ui.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand-mark" href="./index.html">AI SAJU LAB</a>
+        <nav class="site-nav">
+          <a data-page href="./index.html">메인</a>
+          <a data-page href="./quick.html">무료 1분 사주</a>
+          <a data-page href="./premium-20022.html">프리미엄</a>
+          <a data-page href="./checkout.html">결제</a>
+          <a data-page href="./result.html">결과</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container grid grid-2">
+          <article class="card card-pad">
+            <p class="eyebrow">Order Summary</p>
+            <h1 class="section-title">청운 윤태섭의 2026년 신년운세 총람</h1>
+            <p class="section-copy">홍길동님의 프리미엄 리딩 생성이 완료되었습니다.</p>
+            <div class="grid" style="gap:0.5rem;margin-top:0.8rem;">
+              <p><strong>기본 금액:</strong> 19,000원</p>
+              <p><strong>리딩 ID:</strong> sample-reading-id</p>
+              <p><strong>상태:</strong> REQUIRES_PAYMENT</p>
+            </div>
+          </article>
+
+          <div class="grid">
+            <article class="card card-pad">
+              <p class="eyebrow">Checkout</p>
+              <h2 class="section-title" style="font-size:1.2rem;">결제 진행</h2>
+              <div class="form-group">
+                <label class="label">결제 수단</label>
+                <select class="select"><option>모의 카드결제</option><option>카드</option><option>카카오페이</option></select>
+              </div>
+              <div class="form-group" style="margin-top:0.7rem;">
+                <label class="label">쿠폰 코드</label>
+                <input class="input" value="WELCOME2026" />
+              </div>
+              <div class="btn-row" style="margin-top:0.9rem;">
+                <button class="btn" data-fake-next="./processing.html">결제 페이지 이동</button>
+              </div>
+            </article>
+
+            <article class="card card-pad">
+              <p class="eyebrow">Redeem</p>
+              <h2 class="section-title" style="font-size:1.2rem;">리딤 코드 사용</h2>
+              <div class="form-group"><label class="label">코드</label><input class="input" value="VIP70004" /></div>
+              <div class="form-group" style="margin-top:0.7rem;"><label class="label">휴대폰 번호</label><input class="input" value="01012341234" /></div>
+              <div class="btn-row" style="margin-top:0.9rem;">
+                <button class="btn-secondary" data-fake-next="./processing.html">코드 적용 후 진행</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="site-footer__inner">체크아웃 UI 프리뷰</div></footer>
+    <script src="./assets/ui.js"></script>
+  </body>
+</html>
