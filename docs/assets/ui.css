@@ -100,6 +100,16 @@ main {
   padding: 1.15rem;
 }
 
+.room-character {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 0.7rem;
+  border: 1px solid #2a2a3e;
+  background: #0f1020;
+}
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -525,6 +535,20 @@ main {
   background: linear-gradient(145deg, #fffaf3, #fff);
 }
 
+.persona-hero__layout {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.persona-hero__image {
+  width: 100%;
+  max-width: 260px;
+  border-radius: 14px;
+  border: 1px solid #2a2a3e;
+  background: #0f1020;
+  object-fit: cover;
+}
+
 .score-snapshot__top {
   display: flex;
   align-items: center;
@@ -713,6 +737,15 @@ main {
   color: #2a2723;
 }
 
+.premium-hero__image {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 0.8rem;
+  border: 1px solid #2a2a3e;
+  background: #0f1020;
+  object-fit: cover;
+}
+
 .premium-hero--sun {
   background: linear-gradient(130deg, #fff6e8, #fff, #efd8b1);
 }
@@ -782,6 +815,15 @@ main {
 @media (min-width: 768px) {
   .grid-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .persona-hero__layout {
+    grid-template-columns: 220px 1fr;
+    align-items: center;
+  }
+
+  .room-character {
+    aspect-ratio: 16 / 10;
   }
 }
 
