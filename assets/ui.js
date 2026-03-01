@@ -67,12 +67,34 @@
     renderStep();
   }
 
+  var pageParams = new URLSearchParams(window.location.search);
+  var profileName = (pageParams.get('name') || '').trim();
+  var profileMbti = (pageParams.get('mbti') || '').trim().toUpperCase();
+
+  function withProfileQuery(url) {
+    if (!url || (!profileName && !profileMbti)) return url;
+    if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0 || url.indexOf('#') === 0) return url;
+
+    var parsed = new URL(url, window.location.href);
+    if (profileName && !parsed.searchParams.get('name')) parsed.searchParams.set('name', profileName);
+    if (profileMbti && !parsed.searchParams.get('mbti')) parsed.searchParams.set('mbti', profileMbti);
+    return parsed.pathname + parsed.search + parsed.hash;
+  }
+
+  var links = document.querySelectorAll('a[href]');
+  links.forEach(function (link) {
+    var href = link.getAttribute('href');
+    if (!href || href.indexOf('.html') === -1) return;
+    var next = withProfileQuery(href);
+    if (next) link.setAttribute('href', next);
+  });
+
   var fakeButtons = document.querySelectorAll('[data-fake-next]');
   fakeButtons.forEach(function (button) {
     button.addEventListener('click', function () {
       var to = button.getAttribute('data-fake-next');
       if (to) {
-        window.location.href = to;
+        window.location.href = withProfileQuery(to);
       }
     });
   });
