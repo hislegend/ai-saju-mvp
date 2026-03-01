@@ -1027,3 +1027,271 @@ textarea {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* Home Page v2 (M2) */
+.home-v2 {
+  background: #120f20;
+  color: #f8f1df;
+  min-height: 100dvh;
+  padding-bottom: 5.2rem;
+}
+
+.home-v2-shell {
+  width: min(100%, 440px);
+  margin: 0 auto;
+  padding: 0.9rem 1rem 2rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.home-hero-v2 {
+  position: relative;
+  min-height: 76dvh;
+  overflow: hidden;
+}
+
+.home-hero-image {
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.62;
+}
+
+.home-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(8 7 14 / 20%) 0%, rgb(18 15 32 / 90%) 78%);
+}
+
+.home-hero-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: min(100%, 440px);
+  margin: 0 auto;
+  padding: 1.2rem 1rem 1.25rem;
+  display: grid;
+  gap: 0.58rem;
+}
+
+.home-hero-eyebrow {
+  color: #e7c88b;
+  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.home-hero-content h1 {
+  font-family: var(--font-heading), serif;
+  color: #ffd77a;
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.home-hero-content p {
+  color: #f4e9ce;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.home-tabs {
+  overflow: hidden;
+}
+
+.home-tabs-scroll {
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+  padding-bottom: 0.1rem;
+}
+
+.home-tab-item {
+  border: 1px solid rgb(234 201 128 / 35%);
+  background: rgb(255 255 255 / 9%);
+  color: #f9edcf;
+  border-radius: 999px;
+  padding: 0.42rem 0.76rem;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.home-products,
+.home-reviews,
+.home-product-card {
+  border-radius: 1rem;
+  border: 1px solid rgb(234 201 128 / 25%);
+  background: rgb(255 255 255 / 8%);
+  backdrop-filter: blur(10px);
+}
+
+.home-products,
+.home-reviews {
+  padding: 0.85rem;
+}
+
+.home-products-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.home-products-head p {
+  color: #ffd77a;
+  font-weight: 700;
+}
+
+.home-products-head span {
+  font-size: 0.76rem;
+  color: #d8c49a;
+}
+
+.home-product-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.home-product-card {
+  overflow: hidden;
+}
+
+.home-product-image-wrap {
+  position: relative;
+  height: 180px;
+}
+
+.home-product-image {
+  object-fit: cover;
+  object-position: center top;
+}
+
+.home-product-body {
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.home-product-name {
+  color: #ffd77a;
+  font-weight: 700;
+}
+
+.home-product-specialty {
+  color: #efe5cc;
+  font-size: 0.82rem;
+}
+
+.home-product-price {
+  color: #f6efdb;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.home-product-price span {
+  text-decoration: line-through;
+  color: #baa77e;
+  margin-right: 0.38rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.home-big-cta {
+  display: grid;
+  place-content: center;
+  width: 100%;
+  min-height: 50px;
+  border-radius: 0.9rem;
+  background: linear-gradient(135deg, #d4a853, #f0c66f);
+  color: #2a1b0f;
+  font-weight: 800;
+}
+
+.home-reviews h2 {
+  color: #ffd77a;
+  font-size: 1rem;
+}
+
+.home-review-stars {
+  margin-top: 0.35rem;
+  color: #ffd77a;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.home-review-stars span {
+  color: #f7ead0;
+  margin-left: 0.32rem;
+  font-size: 0.8rem;
+}
+
+.home-review-list {
+  margin-top: 0.6rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.home-review-card {
+  border-radius: 0.75rem;
+  background: rgb(255 255 255 / 7%);
+  border: 1px solid rgb(234 201 128 / 20%);
+  padding: 0.6rem;
+}
+
+.home-review-card p {
+  color: #f2e6ca;
+  font-size: 0.82rem;
+  line-height: 1.46;
+}
+
+.home-review-card span {
+  margin-top: 0.35rem;
+  display: block;
+  color: #d6c18f;
+  font-size: 0.76rem;
+}
+
+.home-social-toast {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0.8rem;
+  z-index: 46;
+  width: min(100% - 2rem, 420px);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgb(212 168 83 / 42%);
+  background: rgb(13 11 22 / 93%);
+  backdrop-filter: blur(8px);
+  padding: 0.6rem 0.9rem;
+}
+
+.home-social-toast .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+}
+
+.home-social-toast p {
+  color: #f6ecd4;
+  font-size: 0.79rem;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .home-v2-shell,
+  .home-hero-content {
+    width: min(100%, 820px);
+  }
+
+  .home-product-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-product-image-wrap {
+    height: 230px;
+  }
+}
