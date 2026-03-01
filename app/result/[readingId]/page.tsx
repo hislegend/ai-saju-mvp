@@ -2,26 +2,136 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { PageTracker } from '@/components/common/page-tracker';
-import { ShareActions } from '@/components/result/share-actions';
+import { BlurSection } from '@/components/result/blur-section';
+import { CategoryCard } from '@/components/result/category-card';
+import { ScoreCircle } from '@/components/result/score-circle';
+import { ShareButtons } from '@/components/result/share-buttons';
 
 type ResultPageProps = {
   params: Promise<{ readingId: string }>;
 };
 
+type ScorePayload = {
+  overall: number;
+  sections: {
+    love: number;
+    money: number;
+    career: number;
+    health: number;
+    relationship: number;
+  };
+};
+
+type CategoryKey = 'LOVE' | 'MONEY' | 'CAREER' | 'HEALTH' | 'RELATIONSHIP';
+
+const CATEGORY_META: Array<{ key: CategoryKey; icon: string; title: string; scoreKey: keyof ScorePayload['sections'] }> = [
+  { key: 'LOVE', icon: '💞', title: '연애운', scoreKey: 'love' },
+  { key: 'MONEY', icon: '💰', title: '재물운', scoreKey: 'money' },
+  { key: 'CAREER', icon: '💼', title: '커리어운', scoreKey: 'career' },
+  { key: 'HEALTH', icon: '🌿', title: '건강운', scoreKey: 'health' },
+  { key: 'RELATIONSHIP', icon: '🤝', title: '관계운', scoreKey: 'relationship' },
+];
+
 export async function generateMetadata({ params }: ResultPageProps) {
   const { readingId } = await params;
   return {
-    title: `사주 결과 (${readingId.slice(0, 8)})`,
+    title: `AI 사주 결과 | ${readingId.slice(0, 8)}`,
   };
+}
+
+function parseScore(content: string): ScorePayload {
+  try {
+    const parsed = JSON.parse(content) as Partial<ScorePayload>;
+
+    return {
+      overall: typeof parsed.overall === 'number' ? parsed.overall : 72,
+      sections: {
+        love: typeof parsed.sections?.love === 'number' ? parsed.sections.love : 70,
+        money: typeof parsed.sections?.money === 'number' ? parsed.sections.money : 70,
+        career: typeof parsed.sections?.career === 'number' ? parsed.sections.career : 70,
+        health: typeof parsed.sections?.health === 'number' ? parsed.sections.health : 70,
+        relationship: typeof parsed.sections?.relationship === 'number' ? parsed.sections.relationship : 70,
+      },
+    };
+  } catch {
+    return {
+      overall: 72,
+      sections: {
+        love: 70,
+        money: 70,
+        career: 70,
+        health: 70,
+        relationship: 70,
+      },
+    };
+  }
+}
+
+function toSummaryLines(raw: string): string[] {
+  const compact = raw.replace(/\r/g, '').trim();
+  if (!compact) return ['분석 데이터가 준비되는 중입니다.'];
+
+  const byLine = compact
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0 && !line.startsWith('['));
+
+  if (byLine.length >= 3) return byLine.slice(0, 3);
+
+  const bySentence = compact
+    .split(/(?<=[.!?다])\s+/)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+
+  return (bySentence.length > 0 ? bySentence : byLine).slice(0, 3);
+}
+
+function parseMbtiGuide(raw: string) {
+  const lines = raw.replace(/\r/g, '').split('\n').map((line) => line.trim());
+  const type = lines.find((line) => line.startsWith('[') && line.endsWith(']'))?.replace(/[[\]]/g, '') ?? 'MBTI 맞춤 가이드';
+
+  const strengths = lines.find((line) => line.startsWith('강점:'))?.replace('강점:', '').trim() ?? '강점 데이터 준비 중';
+  const risks = lines.find((line) => line.startsWith('주의점:'))?.replace('주의점:', '').trim() ?? '주의점 데이터 준비 중';
+
+  const actions = lines
+    .filter((line) => /^\d+\./.test(line))
+    .map((line) => line.replace(/^\d+\.\s*/, '').trim())
+    .slice(0, 3);
+
+  return { type, strengths, risks, actions };
+}
+
+function parseMonthly(raw: string) {
+  const lines = raw
+    .replace(/\r/g, '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, 12);
+
+  return lines.map((line, index) => {
+    const match = line.match(/(\d+)월\s*\[([^\]]+)\]:\s*(.*)/);
+    if (!match) {
+      return {
+        month: index + 1,
+        keyword: '흐름',
+        advice: line,
+      };
+    }
+
+    return {
+      month: Number(match[1]),
+      keyword: match[2],
+      advice: match[3],
+    };
+  });
 }
 
 export default async function ResultPage({ params }: ResultPageProps) {
   const { readingId } = await params;
 
   const reading = await prisma.reading.findUnique({
-    where: {
-      id: readingId,
-    },
+    where: { id: readingId },
     include: {
       profile: true,
       mbtiProfile: true,
@@ -43,100 +153,138 @@ export default async function ResultPage({ params }: ResultPageProps) {
     notFound();
   }
 
+  const sectionMap = new Map(reading.sections.map((section) => [section.sectionType, section]));
+  const coreText = sectionMap.get('CORE')?.content ?? reading.previewText ?? '오늘 운의 흐름이 점차 상승하는 날입니다.';
+  const score = parseScore(sectionMap.get('SCORE')?.content ?? '{}');
+  const monthly = parseMonthly(sectionMap.get('MONTHLY')?.content ?? '');
+  const mbtiGuide = parseMbtiGuide(sectionMap.get('MBTI_GUIDE')?.content ?? '');
+  const characterComment = sectionMap.get('CHARACTER_COMMENT')?.content ?? '지금의 리듬을 지키면 좋은 결과가 이어집니다.';
+
   const isPremiumLocked = reading.mode === 'PREMIUM' && reading.status !== 'COMPLETED';
-  const sectionsToRender = isPremiumLocked ? reading.sections.slice(0, 2) : reading.sections;
+  const shouldBlurDetail = reading.mode === 'QUICK' || isPremiumLocked;
 
   return (
-    <section className="section">
+    <>
       <PageTracker eventName="result_viewed" readingId={reading.id} metadata={{ status: reading.status }} />
-      <div className="container grid" style={{ gap: '1rem' }}>
-        <article className="card card-pad">
-          <p className="eyebrow">Result</p>
-          <h1 className="section-title" style={{ marginBottom: '0.55rem' }}>
-            {reading.profile.name}님의 사주 리딩 결과
-          </h1>
-          <p className="section-copy" style={{ marginBottom: '0.5rem' }}>
-            모드: {reading.mode} · 상태: {reading.status}
-            {reading.mbtiProfile ? ` · MBTI: ${reading.mbtiProfile.mbtiType}` : ' · MBTI: 미입력'}
-          </p>
-
-          <div className="share-row" style={{ marginTop: '0.8rem' }}>
-            <Link className="btn-secondary" href="/quick">
-              무료 리딩 다시 만들기
-            </Link>
-            {reading.mode === 'QUICK' ? (
-              <Link className="btn" href="/premium/20022">
-                프리미엄으로 확장
-              </Link>
-            ) : null}
-          </div>
-        </article>
-
-        {reading.status === 'PROCESSING' ? (
-          <article className="card card-pad">
-            <p className="notice">
-              코드 적용 또는 결제 확인이 처리 중입니다.{' '}
-              <Link className="inline-link" href={`/processing?readingId=${reading.id}`}>
-                처리 페이지로 이동
-              </Link>
-            </p>
+      <section className="result-v2">
+        <div className="result-v2-shell">
+          <article className="result-top-card">
+            <p className="result-top-name">{reading.profile.name}님의 오늘 운세</p>
+            <h1>{toSummaryLines(coreText)[0] ?? coreText}</h1>
+            <div className="result-top-meta">
+              <span>{reading.mbtiProfile?.mbtiType ?? 'MBTI 미입력'}</span>
+              <span>{reading.mode === 'PREMIUM' ? '프리미엄 리딩' : '무료 1분 리딩'}</span>
+            </div>
           </article>
-        ) : null}
 
-        {isPremiumLocked ? (
-          <article className="card card-pad">
-            <p className="notice">
+          <article className="result-score-card">
+            <ScoreCircle score={score.overall} />
+            <div className="result-bars">
+              {CATEGORY_META.map((item) => (
+                <div key={`bar-${item.key}`} className="result-bar-item">
+                  <p>{item.title}</p>
+                  <progress value={score.sections[item.scoreKey]} max={100} />
+                  <span>{Math.round(score.sections[item.scoreKey])}점</span>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <div className="result-card-grid">
+            {CATEGORY_META.map((item) => {
+              const section = sectionMap.get(item.key);
+              return (
+                <CategoryCard
+                  key={item.key}
+                  title={item.title}
+                  icon={item.icon}
+                  score={score.sections[item.scoreKey]}
+                  summaryLines={toSummaryLines(section?.content ?? '데이터를 준비 중입니다.')}
+                />
+              );
+            })}
+          </div>
+
+          {shouldBlurDetail ? (
+            <BlurSection title="월별 흐름">
+              <div className="monthly-grid">
+                {Array.from({ length: 12 }).map((_, index) => (
+                  <div className="monthly-item" key={`monthly-blur-${index}`}>
+                    <p>{index + 1}월</p>
+                    <strong>분석 중</strong>
+                  </div>
+                ))}
+              </div>
+            </BlurSection>
+          ) : (
+            <section className="detail-card">
+              <h2>월별 흐름</h2>
+              <div className="monthly-grid">
+                {monthly.map((item) => (
+                  <div className="monthly-item" key={`monthly-${item.month}`}>
+                    <p>{item.month}월</p>
+                    <strong>{item.keyword}</strong>
+                    <span>{item.advice}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {shouldBlurDetail ? (
+            <BlurSection title="MBTI 맞춤 가이드">
+              <article className="detail-card">
+                <h2>MBTI 맞춤 가이드</h2>
+                <div className="mbti-badge">{mbtiGuide.type}</div>
+                <p>강점: {mbtiGuide.strengths}</p>
+                <p>주의점: {mbtiGuide.risks}</p>
+              </article>
+            </BlurSection>
+          ) : (
+            <article className="detail-card">
+              <h2>MBTI 맞춤 가이드</h2>
+              <div className="mbti-badge">{mbtiGuide.type}</div>
+              <p>강점: {mbtiGuide.strengths}</p>
+              <p>주의점: {mbtiGuide.risks}</p>
+              <ul>
+                {mbtiGuide.actions.map((action, index) => (
+                  <li key={`action-${index}`}>{action}</li>
+                ))}
+              </ul>
+            </article>
+          )}
+
+          {shouldBlurDetail ? (
+            <BlurSection title="상담사 한 마디">
+              <article className="character-card">
+                <p className="character-chip">청운 상담사</p>
+                <blockquote>{characterComment}</blockquote>
+              </article>
+            </BlurSection>
+          ) : (
+            <article className="character-card">
+              <p className="character-chip">청운 상담사</p>
+              <blockquote>{characterComment}</blockquote>
+            </article>
+          )}
+
+          {isPremiumLocked ? (
+            <article className="result-alert">
               프리미엄 전체 결과는 결제 완료 후 열람됩니다.{' '}
-              <Link className="inline-link" href={`/checkout/${reading.id}`}>
-                결제 페이지로 이동
-              </Link>
-            </p>
-          </article>
-        ) : null}
+              <Link href={`/checkout/${reading.id}`}>결제 페이지로 이동</Link>
+            </article>
+          ) : null}
+        </div>
+      </section>
 
-        <div className="result-grid">
-          <div className="grid" style={{ gap: '0.8rem' }}>
-            {sectionsToRender.map((section) => (
-              <section className="result-section" key={section.id}>
-                <h3>{section.title}</h3>
-                <pre>{section.content}</pre>
-              </section>
-            ))}
-          </div>
-
-          <aside className="result-side">
-            <div className="kpi">
-              <p className="label" style={{ marginBottom: 0 }}>
-                핵심 요약
-              </p>
-              <p>{reading.previewText || '핵심 요약이 아직 생성되지 않았습니다.'}</p>
-            </div>
-
-            <div className="card card-pad">
-              <p className="label" style={{ marginBottom: '0.4rem' }}>
-                공유
-              </p>
-              <ShareActions readingId={reading.id} />
-            </div>
-
-            <div className="card card-pad">
-              <p className="label" style={{ marginBottom: '0.4rem' }}>
-                결제 정보
-              </p>
-              {reading.orders[0] ? (
-                <p className="helper">
-                  최근 주문 상태: <strong>{reading.orders[0].status}</strong>
-                </p>
-              ) : (
-                <p className="helper">주문 내역이 없습니다.</p>
-              )}
-              <Link className="inline-link" href="/mypage" style={{ marginTop: '0.5rem', display: 'inline-block' }}>
-                마이페이지에서 전체 내역 보기
-              </Link>
-            </div>
-          </aside>
+      <div className="result-bottom-fixed">
+        <div className="result-bottom-shell">
+          <ShareButtons readingId={reading.id} />
+          <Link className="btn" href={`/premium/20022?readingId=${reading.id}`}>
+            프리미엄 결과 보기 — 9,900원
+          </Link>
         </div>
       </div>
-    </section>
+    </>
   );
 }
