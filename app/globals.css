@@ -1295,3 +1295,216 @@ textarea {
     height: 230px;
   }
 }
+
+/* Fortune detail page (M3) */
+.fortune-page {
+  background: #120f20;
+  color: #f8f1df;
+  min-height: 100dvh;
+  padding-bottom: 3rem;
+}
+
+.fortune-hero {
+  position: relative;
+  min-height: 70dvh;
+  overflow: hidden;
+}
+
+.fortune-hero-image {
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.66;
+}
+
+.fortune-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(9 8 15 / 20%) 0%, rgb(18 15 32 / 92%) 85%);
+}
+
+.fortune-hero-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1rem;
+  width: min(100%, 440px);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.fortune-hero-content p {
+  color: #e4c785;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.fortune-hero-content h1 {
+  margin-top: 0.35rem;
+  color: #ffd77a;
+  font-size: 1.7rem;
+  line-height: 1.2;
+}
+
+.fortune-shell {
+  width: min(100%, 440px);
+  margin: 0 auto;
+  padding: 0 1rem;
+  margin-top: -0.2rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.fortune-info-card,
+.fortune-price-card,
+.fortune-form,
+.fortune-review-card {
+  border-radius: 1rem;
+  border: 1px solid rgb(234 201 128 / 25%);
+  background: rgb(255 255 255 / 8%);
+  backdrop-filter: blur(10px);
+  padding: 0.9rem;
+}
+
+.fortune-info-card h2,
+.fortune-review-card h2,
+.fortune-form h2 {
+  color: #ffd77a;
+  font-size: 1.05rem;
+  margin-bottom: 0.45rem;
+}
+
+.fortune-info-card p,
+.fortune-info-card li,
+.fortune-review-card p {
+  color: #f0e5ca;
+  font-size: 0.84rem;
+  line-height: 1.48;
+}
+
+.fortune-info-card h3 {
+  margin-top: 0.7rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.92rem;
+  color: #edcf8c;
+}
+
+.fortune-info-card ul {
+  display: grid;
+  gap: 0.32rem;
+  padding-left: 0.95rem;
+}
+
+.fortune-price-card p {
+  color: #ebcc8a;
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+.fortune-price-card div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.fortune-price-card span {
+  color: #baa77e;
+  text-decoration: line-through;
+  font-size: 0.88rem;
+}
+
+.fortune-price-card strong {
+  color: #ffd77a;
+  font-size: 1.45rem;
+}
+
+.fortune-price-card em {
+  margin-top: 0.35rem;
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  background: linear-gradient(135deg, #e8bd5c, #d4a853);
+  color: #20150a;
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.fortune-form {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.fortune-label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.84rem;
+  color: #f3e7cb;
+}
+
+.fortune-input {
+  width: 100%;
+  border-radius: 0.7rem;
+  border: 1px solid rgb(234 201 128 / 28%);
+  background: rgb(255 255 255 / 10%);
+  color: #fff3d4;
+  min-height: 42px;
+  padding: 0.6rem 0.7rem;
+}
+
+.fortune-input option {
+  color: #20150d;
+}
+
+.fortune-check {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: #eddcb3;
+}
+
+.fortune-inline-options {
+  border: 1px solid rgb(234 201 128 / 25%);
+  border-radius: 0.7rem;
+  padding: 0.55rem 0.7rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.fortune-inline-options legend {
+  color: #e8cb90;
+  font-size: 0.78rem;
+  padding: 0 0.2rem;
+}
+
+.fortune-inline-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.32rem;
+  font-size: 0.82rem;
+}
+
+.fortune-submit-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+}
+
+.fortune-review-card article {
+  border-radius: 0.7rem;
+  border: 1px solid rgb(234 201 128 / 20%);
+  background: rgb(255 255 255 / 5%);
+  padding: 0.62rem;
+}
+
+.fortune-review-card {
+  display: grid;
+  gap: 0.45rem;
+}
+
+@media (min-width: 768px) {
+  .fortune-shell,
+  .fortune-hero-content {
+    width: min(100%, 820px);
+  }
+}
