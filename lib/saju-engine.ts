@@ -6,7 +6,7 @@
 import { CalendarType, Gender, ReadingMode } from '@prisma/client';
 import { calculateSajuPalza } from '@/lib/saju-calendar';
 import { interpretSaju, type AIReadingResult } from '@/lib/ai-interpreter';
-import { getMbtiTone, normalizeMbtiType } from '@/lib/mbti';
+import { normalizeMbtiType } from '@/lib/mbti';
 import { getCachedResult, setCachedResult } from '@/lib/reading-cache';
 
 export type ReadingInput = {
