@@ -97,6 +97,18 @@
     });
   }
 
+  var generateBtn = document.querySelector('[data-generate-result]');
+  if (generateBtn) {
+    generateBtn.addEventListener('click', function () {
+      var nameInput = document.querySelector('[data-input-name]');
+      var mbtiInput = document.querySelector('[data-input-mbti]');
+      var name = nameInput && nameInput.value ? nameInput.value.trim() : '홍길동';
+      var mbti = mbtiInput && mbtiInput.value ? mbtiInput.value.trim().toUpperCase() : 'ENFP';
+      var url = './result.html?name=' + encodeURIComponent(name) + '&mbti=' + encodeURIComponent(mbti);
+      window.location.href = url;
+    });
+  }
+
   var mbtiRoot = document.querySelector('[data-mbti-root]');
   if (mbtiRoot) {
     var mbtiData = {
@@ -122,30 +134,38 @@
       }
     };
 
+    function mbtiCluster(type) {
+      var t = (type || '').toUpperCase();
+      if (mbtiData[t]) return t;
+      if (t.includes('N') && t.includes('T')) return 'ENTJ';
+      if (t.includes('N') && t.includes('F')) return 'INFJ';
+      if (t.includes('S') && t.includes('J')) return 'ISTJ';
+      return 'ENFP';
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var mbti = mbtiCluster(params.get('mbti') || 'ENFP');
+    var name = (params.get('name') || '홍길동').trim();
+
+    var item = mbtiData[mbti];
     var coreEl = mbtiRoot.querySelector('[data-mbti-core]');
     var riskEl = mbtiRoot.querySelector('[data-mbti-risk]');
     var actionEl = mbtiRoot.querySelector('[data-mbti-action]');
-    var mbtiButtons = mbtiRoot.querySelectorAll('[data-mbti-option]');
+    var mbtiTextEls = document.querySelectorAll('[data-user-mbti]');
+    var nameTextEls = document.querySelectorAll('[data-user-name]');
 
-    function renderMbti(type) {
-      var item = mbtiData[type];
-      if (!item || !coreEl || !riskEl || !actionEl) return;
+    if (item && coreEl && riskEl && actionEl) {
       coreEl.textContent = item.core;
       riskEl.textContent = item.risk;
       actionEl.textContent = item.action;
-      mbtiButtons.forEach(function (btn) {
-        btn.classList.toggle('is-active', btn.getAttribute('data-mbti-option') === type);
-      });
     }
 
-    mbtiButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var type = btn.getAttribute('data-mbti-option');
-        renderMbti(type);
-      });
+    mbtiTextEls.forEach(function (el) {
+      el.textContent = mbti;
     });
-
-    renderMbti('ENFP');
+    nameTextEls.forEach(function (el) {
+      el.textContent = name || '홍길동';
+    });
   }
 
   var copyBtn = document.querySelector('[data-copy-result-link]');
