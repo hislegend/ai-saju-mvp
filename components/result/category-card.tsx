@@ -3,9 +3,10 @@ type CategoryCardProps = {
   icon: string;
   score: number;
   summaryLines: string[];
+  detailText?: string | null;
 };
 
-export function CategoryCard({ title, icon, score, summaryLines }: CategoryCardProps) {
+export function CategoryCard({ title, icon, score, summaryLines, detailText }: CategoryCardProps) {
   const clamped = Math.max(0, Math.min(100, Math.round(score)));
 
   return (
@@ -22,6 +23,8 @@ export function CategoryCard({ title, icon, score, summaryLines }: CategoryCardP
           <li key={`${title}-${index}`}>{line}</li>
         ))}
       </ul>
+
+      {detailText ? <p className="fortune-detail">{detailText}</p> : null}
     </article>
   );
 }

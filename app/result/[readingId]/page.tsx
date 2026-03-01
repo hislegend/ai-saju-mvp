@@ -86,9 +86,25 @@ function toSummaryLines(raw: string): string[] {
   return (bySentence.length > 0 ? bySentence : byLine).slice(0, 3);
 }
 
+function splitSummaryDetail(raw: string) {
+  const compact = raw.replace(/\r/g, '').trim();
+  if (!compact) {
+    return {
+      summary: '데이터를 준비 중입니다.',
+      detail: '',
+    };
+  }
+
+  const [summaryPart, ...detailParts] = compact.split('\n\n');
+  return {
+    summary: summaryPart.trim(),
+    detail: detailParts.join('\n\n').trim(),
+  };
+}
+
 function parseMbtiGuide(raw: string) {
   const lines = raw.replace(/\r/g, '').split('\n').map((line) => line.trim());
-  const type = lines.find((line) => line.startsWith('[') && line.endsWith(']'))?.replace(/[[\]]/g, '') ?? 'MBTI 맞춤 가이드';
+  const type = lines.find((line) => line.startsWith('[') && line.endsWith(']'))?.replace(/[\[\]]/g, '') ?? 'MBTI 맞춤 가이드';
 
   const strengths = lines.find((line) => line.startsWith('강점:'))?.replace('강점:', '').trim() ?? '강점 데이터 준비 중';
   const risks = lines.find((line) => line.startsWith('주의점:'))?.replace('주의점:', '').trim() ?? '주의점 데이터 준비 중';
@@ -160,6 +176,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
   const mbtiGuide = parseMbtiGuide(sectionMap.get('MBTI_GUIDE')?.content ?? '');
   const characterComment = sectionMap.get('CHARACTER_COMMENT')?.content ?? '지금의 리듬을 지키면 좋은 결과가 이어집니다.';
 
+  const isPremiumCompleted = reading.mode === 'PREMIUM' && reading.status === 'COMPLETED';
   const isPremiumLocked = reading.mode === 'PREMIUM' && reading.status !== 'COMPLETED';
   const shouldBlurDetail = reading.mode === 'QUICK' || isPremiumLocked;
 
@@ -193,13 +210,16 @@ export default async function ResultPage({ params }: ResultPageProps) {
           <div className="result-card-grid">
             {CATEGORY_META.map((item) => {
               const section = sectionMap.get(item.key);
+              const content = splitSummaryDetail(section?.content ?? '');
+
               return (
                 <CategoryCard
                   key={item.key}
                   title={item.title}
                   icon={item.icon}
                   score={score.sections[item.scoreKey]}
-                  summaryLines={toSummaryLines(section?.content ?? '데이터를 준비 중입니다.')}
+                  summaryLines={toSummaryLines(content.summary)}
+                  detailText={isPremiumCompleted ? content.detail : null}
                 />
               );
             })}
@@ -267,6 +287,12 @@ export default async function ResultPage({ params }: ResultPageProps) {
               <blockquote>{characterComment}</blockquote>
             </article>
           )}
+
+          {isPremiumCompleted ? (
+            <button type="button" className="btn-secondary" disabled>
+              PDF 다운로드 (Phase 3 예정)
+            </button>
+          ) : null}
 
           {isPremiumLocked ? (
             <article className="result-alert">

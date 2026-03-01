@@ -1508,3 +1508,11 @@ textarea {
     width: min(100%, 820px);
   }
 }
+
+.fortune-detail {
+  margin-top: 0.55rem;
+  color: #e8d9b6;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
