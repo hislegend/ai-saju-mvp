@@ -48,72 +48,75 @@
             <h2 class="section-title" style="margin-bottom:0.45rem;">무료 결과 생성</h2>
             <p class="section-copy" style="margin-bottom:1rem;">2단계로 나눠 입력 부담을 줄였습니다.</p>
 
-            <div class="step-progress">
-              <div class="step-progress__head">
-                <strong>1/2 단계</strong>
-                <span>기본 정보 입력</span>
-              </div>
-              <div class="step-progress__bar"><span style="width:50%"></span></div>
-            </div>
-
-            <div class="form-grid">
-              <div class="form-group span-2">
-                <label class="label">이름</label>
-                <input class="input" type="text" placeholder="홍길동" value="홍길동" />
-              </div>
-
-              <div class="form-group span-2">
-                <label class="label">성별</label>
-                <div class="seg-row">
-                  <button class="seg-btn active">여성</button>
-                  <button class="seg-btn">남성</button>
-                  <button class="seg-btn">기타</button>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="label">달력 기준</label>
-                <select class="select"><option>양력</option><option>음력</option></select>
-              </div>
-              <div class="form-group">
-                <label class="label">생년월일</label>
-                <input class="input" type="date" value="1994-04-17" />
-              </div>
-
-              <div class="form-group span-2">
-                <label class="label">태어난 시간</label>
-                <input class="input" type="time" value="08:30" />
-                <label class="check-row"><input type="checkbox" /> 태어난 시간을 모릅니다.</label>
-              </div>
-            </div>
-
-            <div class="step-actions" style="margin-top:0.9rem;">
-              <button class="btn-secondary">이전 단계</button>
-              <button class="btn" data-fake-next="./result.html">다음 단계</button>
-            </div>
-
-            <div class="card" style="padding:0.8rem;background:#f8f4ec;margin-top:0.85rem;">
-              <div class="step-progress" style="margin-bottom:0.6rem;">
+            <div data-step-root>
+              <div class="step-progress" data-step-progress>
                 <div class="step-progress__head">
-                  <strong>2/2 단계</strong>
-                  <span>성향/옵션 선택</span>
+                  <strong data-step-count>1/2 단계</strong>
+                  <span data-step-label>기본 정보 입력</span>
                 </div>
-                <div class="step-progress__bar"><span style="width:100%"></span></div>
+                <div class="step-progress__bar"><span data-step-bar style="width:50%"></span></div>
               </div>
-              <p class="label">MBTI 4문항 간이 진단 (UI)</p>
-              <p class="helper" style="margin:0 0 0.7rem;">모를 때만 사용. 결과 톤 개인화를 위한 임시 타입 산출.</p>
-              <div class="btn-row">
-                <button class="btn-ghost">E / I</button>
-                <button class="btn-ghost">S / N</button>
-                <button class="btn-ghost">T / F</button>
-                <button class="btn-ghost">J / P</button>
-              </div>
-              <label class="check-row" style="margin-top:0.7rem;"><input type="checkbox" checked /> 이벤트/프로모션 안내 수신 동의 (선택)</label>
-            </div>
 
-            <div class="btn-row" style="margin-top:0.9rem;">
-              <button class="btn" data-fake-next="./result.html">무료 결과 생성</button>
-              <a class="btn-secondary" href="./premium-20022.html">프리미엄으로 이동</a>
+              <div data-step-panel="1">
+                <div class="form-grid">
+                  <div class="form-group span-2">
+                    <label class="label">이름</label>
+                    <input class="input" type="text" placeholder="홍길동" value="홍길동" />
+                  </div>
+
+                  <div class="form-group span-2">
+                    <label class="label">성별</label>
+                    <div class="seg-row">
+                      <button type="button" class="seg-btn active">여성</button>
+                      <button type="button" class="seg-btn">남성</button>
+                      <button type="button" class="seg-btn">기타</button>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="label">달력 기준</label>
+                    <select class="select"><option>양력</option><option>음력</option></select>
+                  </div>
+                  <div class="form-group">
+                    <label class="label">생년월일</label>
+                    <input class="input" type="date" value="1994-04-17" />
+                  </div>
+
+                  <div class="form-group span-2">
+                    <label class="label">태어난 시간</label>
+                    <input class="input" type="time" value="08:30" />
+                    <label class="check-row"><input type="checkbox" /> 태어난 시간을 모릅니다.</label>
+                  </div>
+                </div>
+
+                <div class="step-actions" style="margin-top:0.9rem;">
+                  <button type="button" class="btn-secondary" disabled>이전 단계</button>
+                  <button type="button" class="btn" data-step-next>다음 단계</button>
+                </div>
+              </div>
+
+              <div data-step-panel="2" class="is-hidden">
+                <div class="card" style="padding:0.8rem;background:#f8f4ec;margin-top:0.85rem;">
+                  <p class="label">MBTI 4문항 간이 진단 (UI)</p>
+                  <p class="helper" style="margin:0 0 0.7rem;">모를 때만 사용. 결과 톤 개인화를 위한 임시 타입 산출.</p>
+                  <div class="btn-row">
+                    <button type="button" class="btn-ghost">E / I</button>
+                    <button type="button" class="btn-ghost">S / N</button>
+                    <button type="button" class="btn-ghost">T / F</button>
+                    <button type="button" class="btn-ghost">J / P</button>
+                  </div>
+                  <label class="check-row" style="margin-top:0.7rem;"><input type="checkbox" checked /> 이벤트/프로모션 안내 수신 동의 (선택)</label>
+                </div>
+
+                <div class="step-actions" style="margin-top:0.9rem;">
+                  <button type="button" class="btn-secondary" data-step-back>이전 단계</button>
+                  <button type="button" class="btn" data-fake-next="./result.html">무료 결과 생성</button>
+                </div>
+
+                <div class="btn-row" style="margin-top:0.7rem;">
+                  <a class="btn-secondary" href="./premium-20022.html">프리미엄으로 이동</a>
+                </div>
+              </div>
             </div>
             <p class="helper" style="margin-top:0.6rem;">UI 프리뷰 모드: 버튼 클릭 시 샘플 결과 화면으로 이동합니다.</p>
           </article>

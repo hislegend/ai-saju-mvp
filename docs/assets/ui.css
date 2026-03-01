@@ -386,6 +386,10 @@ main {
   gap: 0.55rem;
 }
 
+.is-hidden {
+  display: none !important;
+}
+
 .result-section {
   padding: 0.92rem;
   border: 1px solid var(--line);

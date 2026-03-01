@@ -24,6 +24,49 @@
     }, 3200);
   }
 
+  var stepRoot = document.querySelector('[data-step-root]');
+  if (stepRoot) {
+    var currentStep = 1;
+    var panel1 = stepRoot.querySelector('[data-step-panel="1"]');
+    var panel2 = stepRoot.querySelector('[data-step-panel="2"]');
+    var countEl = stepRoot.querySelector('[data-step-count]');
+    var labelEl = stepRoot.querySelector('[data-step-label]');
+    var barEl = stepRoot.querySelector('[data-step-bar]');
+
+    function renderStep() {
+      if (!panel1 || !panel2 || !countEl || !labelEl || !barEl) return;
+      if (currentStep === 1) {
+        panel1.classList.remove('is-hidden');
+        panel2.classList.add('is-hidden');
+        countEl.textContent = '1/2 단계';
+        labelEl.textContent = '기본 정보 입력';
+        barEl.style.width = '50%';
+      } else {
+        panel1.classList.add('is-hidden');
+        panel2.classList.remove('is-hidden');
+        countEl.textContent = '2/2 단계';
+        labelEl.textContent = '성향/옵션 선택';
+        barEl.style.width = '100%';
+      }
+    }
+
+    var nextBtn = stepRoot.querySelector('[data-step-next]');
+    var backBtn = stepRoot.querySelector('[data-step-back]');
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        currentStep = 2;
+        renderStep();
+      });
+    }
+    if (backBtn) {
+      backBtn.addEventListener('click', function () {
+        currentStep = 1;
+        renderStep();
+      });
+    }
+    renderStep();
+  }
+
   var fakeButtons = document.querySelectorAll('[data-fake-next]');
   fakeButtons.forEach(function (button) {
     button.addEventListener('click', function () {
