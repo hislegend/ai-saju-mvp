@@ -4,7 +4,7 @@
  */
 
 // @ts-expect-error korean-lunar-calendar has no types
-import { KoreanLunarCalendar } from 'korean-lunar-calendar';
+import KoreanLunarCalendar from 'korean-lunar-calendar';
 
 // 천간 (Heavenly Stems)
 const CHEON_GAN = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'] as const;
@@ -66,7 +66,7 @@ function getLunarDate(year: number, month: number, day: number, calendarType: 's
   if (calendarType === 'lunar') return { year, month, day };
   const cal = new KoreanLunarCalendar();
   cal.setSolarDate(year, month, day);
-  return { year: cal.lunarYear, month: cal.lunarMonth, day: cal.lunarDay };
+  const l = cal.getLunarCalendar(); return { year: l.year, month: l.month, day: l.day };
 }
 
 function getYearPillar(lunarYear: number): Pillar {
