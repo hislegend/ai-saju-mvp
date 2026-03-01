@@ -606,6 +606,85 @@ main {
   width: 100%;
 }
 
+.premium-main {
+  padding-bottom: 90px;
+}
+
+.premium-mobile {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.premium-hero {
+  color: #2a2723;
+}
+
+.premium-hero--sun {
+  background: linear-gradient(130deg, #fff6e8, #fff, #efd8b1);
+}
+
+.premium-hero--gold {
+  background: linear-gradient(130deg, #fff7e7, #fff, #ffe4ad);
+}
+
+.premium-price-row {
+  margin-top: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.premium-price-row strong {
+  font-size: 1.3rem;
+  font-family: "Noto Serif KR", serif;
+}
+
+.premium-chip-row {
+  margin-top: 0.7rem;
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.premium-chip {
+  display: inline-flex;
+  padding: 0.3rem 0.62rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 80%);
+  border: 1px solid #e4d1b1;
+  font-size: 0.78rem;
+  color: #6d4d2a;
+}
+
+.premium-steps {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.premium-steps div {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.premium-steps b {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #f5e6cf;
+  color: #8a2d12;
+  font-size: 0.86rem;
+}
+
+.premium-steps span {
+  color: #414c45;
+  font-size: 0.9rem;
+}
+
 @media (min-width: 768px) {
   .grid-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
