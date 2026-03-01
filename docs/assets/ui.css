@@ -449,6 +449,73 @@ main {
   padding-bottom: 90px;
 }
 
+.result-theme-dark .result-main {
+  background: #0d0d1a;
+  color: #fff;
+}
+
+.result-theme-dark .result-main .card,
+.result-theme-dark .result-main .result-section,
+.result-theme-dark .result-main .acc-item,
+.result-theme-dark .result-main .locked-card {
+  background: #1a1a2e;
+  border-color: #2a2a3e;
+  box-shadow: none;
+}
+
+.result-theme-dark .result-main .section-copy,
+.result-theme-dark .result-main .helper,
+.result-theme-dark .result-main .label,
+.result-theme-dark .result-main .mini-score-head,
+.result-theme-dark .result-main .acc-panel,
+.result-theme-dark .result-main .locked-card__blur,
+.result-theme-dark .result-main .locked-card__overlay p {
+  color: #d2d2df;
+}
+
+.result-theme-dark .result-main .hero-title,
+.result-theme-dark .result-main .section-title,
+.result-theme-dark .result-main .acc-trigger,
+.result-theme-dark .result-main .score-ring {
+  color: #fff;
+}
+
+.result-theme-dark .result-main .acc-trigger {
+  background: #1a1a2e;
+}
+
+.result-theme-dark .persona-hero {
+  background: linear-gradient(145deg, #1b1b31, #131325);
+}
+
+.result-theme-dark .score-ring {
+  border-color: #c9a96e;
+  background: #111122;
+}
+
+.result-theme-dark .mini-score-bar {
+  background: #2a2a3e;
+}
+
+.result-theme-dark .mini-score-bar span {
+  background: linear-gradient(135deg, #e63946, #cc2e3a);
+}
+
+.result-theme-dark .btn {
+  background: #e63946;
+  box-shadow: 0 10px 24px rgb(230 57 70 / 30%);
+}
+
+.result-theme-dark .btn:hover {
+  background: #cc2e3a;
+}
+
+.result-theme-dark .btn-secondary {
+  background: transparent;
+  border-color: #3a3a55;
+  color: #e7e7f6;
+}
+
 .result-mobile {
   display: grid;
   gap: 0.9rem;
@@ -579,6 +646,10 @@ main {
   text-align: center;
 }
 
+.result-theme-dark .locked-card__overlay {
+  background: linear-gradient(180deg, rgb(13 13 26 / 55%), rgb(13 13 26 / 95%));
+}
+
 .locked-card__overlay p {
   margin: 0;
   font-size: 0.85rem;
@@ -594,6 +665,20 @@ main {
   background: rgb(248 245 239 / 92%);
   border-top: 1px solid var(--line);
   backdrop-filter: blur(6px);
+}
+
+.result-theme-dark .sticky-cta {
+  background: rgb(13 13 26 / 92%);
+  border-top-color: #2a2a3e;
+}
+
+.result-theme-dark .site-footer {
+  background: #101022;
+  border-top-color: #2a2a3e;
+}
+
+.result-theme-dark .site-footer__inner {
+  color: #b8b8c8;
 }
 
 .sticky-cta__inner {
