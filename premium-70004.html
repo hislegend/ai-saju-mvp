@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>프리미엄 70004 | UI 프리뷰</title>
-    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <title>세연보살 사주방 | 프리미엄 패키지</title>
     <link rel="stylesheet" href="./assets/ui.css" />
   </head>
-  <body>
+  <body class="premium-theme-red">
     <header class="site-header">
       <div class="site-header__inner">
         <a class="brand-mark" href="./index.html">AI SAJU LAB</a>
@@ -21,63 +20,79 @@
       </div>
     </header>
 
-    <div class="social-proof">
-      <div class="social-proof__inner">
-        <span class="social-dot"></span>
-        <strong>실시간 구매/조회</strong>
-        <span id="social-proof-text"></span>
-      </div>
-    </div>
-
-    <main>
-      <section class="section">
-        <div class="container grid" style="gap:1rem;">
-          <article class="card card-pad" style="background:linear-gradient(125deg,#fff6e3,#fff,#ffb703)">
-            <span class="badge">PREMIUM PACKAGE</span>
-            <h1 class="section-title" style="margin-top:0.7rem;">세연보살 금전 & 연애 필수 핵심 패키지</h1>
-            <p class="section-copy">재물운 + 연애운 동시 최적화 패키지</p>
-            <div class="btn-row" style="margin-top:0.8rem;align-items:center;">
-              <strong style="font-size:1.28rem;">25,000원</strong>
-              <span class="helper" style="text-decoration:line-through;">39,000원</span>
+    <main class="premium-main">
+      <section class="section" style="padding-top:1.1rem;">
+        <div class="container premium-mobile">
+          <article class="card card-pad premium-hero premium-hero--gold">
+            <img class="premium-hero__image" src="./assets/img/ichijou/2026-03-02-03-07-seyeon.png" alt="세연보살 캐릭터" />
+            <p class="eyebrow">스페셜리스트 사주방</p>
+            <h1 class="hero-title" style="font-size:clamp(1.45rem,5.6vw,2.05rem);">세연보살의 금전 · 연애 핵심 패키지</h1>
+            <p class="section-copy" style="margin-top:0.65rem;">재물 흐름과 관계 흐름을 함께 보고, 지금 당장 실행할 행동까지 제시합니다.</p>
+            <div class="premium-price-row">
+              <strong>25,000원</strong>
+              <span class="helper"><s>49,000원</s></span>
+              <span class="helper">49% 할인</span>
               <span class="badge">한정 할인</span>
+            </div>
+            <div class="premium-chip-row">
+              <span class="premium-chip">재물 + 연애 동시 분석</span>
+              <span class="premium-chip">주간 액션 3개</span>
+              <span class="premium-chip">관계 시나리오 포함</span>
+            </div>
+            <div class="btn-row" style="margin-top:0.9rem;">
+              <button class="btn" data-fake-next="./checkout.html">세연보살 패키지 시작 · 25,000원</button>
             </div>
           </article>
 
-          <div class="grid grid-2">
-            <article class="card card-pad">
-              <p class="eyebrow">패키지 구성</p>
-              <h2 class="section-title">금전 + 연애 동시 분석</h2>
-              <ul class="list-clean">
-                <li><strong>재물 블로킹 포인트</strong><br /><span class="helper">지출 누수/수익 정체 구간 분석</span></li>
-                <li><strong>관계 리커버리 시나리오</strong><br /><span class="helper">관계 유형별 대화 접근법</span></li>
-                <li><strong>주간 실행 플랜</strong><br /><span class="helper">즉시 실행 가능한 액션 3개</span></li>
-              </ul>
-              <div class="btn-row" style="margin-top:0.9rem;">
-                <a class="btn-secondary" href="./premium-20022.html">20022 리포트 보기</a>
-              </div>
-            </article>
+          <article class="card card-pad">
+            <p class="label" style="margin-bottom:0.6rem;">패키지 구성</p>
+            <ul class="list-clean">
+              <li><strong>재물 블로킹 진단</strong><br /><span class="helper">수익 정체/지출 누수 원인 파악</span></li>
+              <li><strong>관계 회복 시나리오</strong><br /><span class="helper">상황별 대화 접근법 제안</span></li>
+              <li><strong>주간 실행 체크리스트</strong><br /><span class="helper">바로 실천 가능한 우선순위 3개</span></li>
+            </ul>
+            <div class="btn-row" style="margin-top:0.9rem;">
+              <button class="btn" data-fake-next="./checkout.html">금전·연애 리딩 시작 · 25,000원</button>
+            </div>
+          </article>
 
-            <article class="card card-pad">
-              <p class="eyebrow">Input</p>
-              <h2 class="section-title" style="margin-bottom:0.45rem;">프리미엄 결과 생성</h2>
-              <p class="section-copy" style="margin-bottom:0.9rem;">입력 완료 후 결제 또는 리딤코드로 결과를 확인할 수 있습니다.</p>
-              <div class="form-grid">
-                <div class="form-group"><label class="label">이름</label><input class="input" value="김하늘" /></div>
-                <div class="form-group"><label class="label">성별</label><select class="select"><option>여성</option></select></div>
-                <div class="form-group"><label class="label">생년월일</label><input class="input" type="date" value="1991-05-19" /></div>
-                <div class="form-group"><label class="label">태어난 시간</label><input class="input" type="time" value="21:10" /></div>
-                <div class="form-group span-2"><label class="label">MBTI</label><select class="select"><option>INFJ</option><option>ENFJ</option></select></div>
-              </div>
-              <div class="btn-row" style="margin-top:0.9rem;">
-                <button class="btn" data-fake-next="./checkout.html">금전 & 연애운 보러가기</button>
-              </div>
-            </article>
-          </div>
+          <article class="card card-pad">
+            <p class="label" style="margin-bottom:0.55rem;">진행 방식</p>
+            <div class="premium-steps">
+              <div><b>1</b><span>정보 입력</span></div>
+              <div><b>2</b><span>패키지 선택 + 결제</span></div>
+              <div><b>3</b><span>맞춤 리딩 확인</span></div>
+            </div>
+            <div class="btn-row" style="margin-top:0.9rem;">
+              <a class="btn-secondary" href="./premium-20022.html">청운 윤태섭 리딩 보기</a>
+            </div>
+          </article>
+
+          <article class="card card-pad">
+            <p class="label" style="margin-bottom:0.55rem;">자주 묻는 질문</p>
+            <div class="result-accordion" data-accordion>
+              <article class="acc-item" data-acc-item>
+                <button class="acc-trigger" data-acc-trigger type="button" aria-expanded="true"><span>결과는 어떤 형식으로 제공되나요?</span><span>−</span></button>
+                <div class="acc-panel" data-acc-panel>핵심 요약 + 상세 해석 + 실행 체크리스트 형태로 제공됩니다.</div>
+              </article>
+              <article class="acc-item" data-acc-item>
+                <button class="acc-trigger" data-acc-trigger type="button" aria-expanded="false"><span>다른 사주방과 같이 볼 수 있나요?</span><span>+</span></button>
+                <div class="acc-panel is-hidden" data-acc-panel>가능합니다. 각 사주방 관점이 달라 비교하면 더 정확합니다.</div>
+              </article>
+            </div>
+          </article>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer"><div class="site-footer__inner">프리미엄 70004 UI 프리뷰</div></footer>
+    <footer class="site-footer"><div class="site-footer__inner">세연보살 패키지 미리보기</div></footer>
+
+    <div class="sticky-cta">
+      <div class="sticky-cta__inner">
+        <button class="btn" data-fake-next="./checkout.html">세연보살 패키지 시작 · 25,000원</button>
+      </div>
+    </div>
+
     <script src="./assets/ui.js"></script>
   </body>
 </html>

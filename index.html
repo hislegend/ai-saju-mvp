@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI 사주 랩 | UI 프리뷰</title>
-    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <title>AI 사주 랩 | 사주방 선택</title>
     <link rel="stylesheet" href="./assets/ui.css" />
   </head>
   <body>
@@ -33,82 +32,84 @@
       <section class="hero">
         <div class="container hero-shell">
           <div>
-            <p class="eyebrow">GitHub UI Preview</p>
-            <h1 class="hero-title">AI 사주 MVP UI 검토 페이지</h1>
+            <p class="eyebrow">오늘의 사주방 선택</p>
+            <h1 class="hero-title">내게 맞는 사주방을 골라 오늘 흐름을 확인해보세요</h1>
             <p class="hero-copy">
-              이 프리뷰는 GitHub Pages에서 화면 구조와 디자인, 퍼널 흐름을 검토하기 위한 정적 버전입니다.
-              API/결제/DB 동작 없이도 전체 사용자 경험을 확인할 수 있습니다.
+              사주방마다 보는 관점과 말투가 다릅니다. 지금 필요한 스타일을 선택하면, 바로 맞춤 결과로 이어집니다.
             </p>
             <div class="hero-cta">
-              <a class="btn" href="./quick.html">무료 퍼널 보기</a>
-              <a class="btn-secondary" href="./premium-20022.html">유료 퍼널 보기</a>
+              <a class="btn" href="./quick.html">무료 사주 먼저 보기</a>
+              <a class="btn-secondary" href="./premium-20022.html">스페셜리스트 사주방 보기</a>
             </div>
           </div>
           <div class="grid">
-            <div class="stat-card">
-              <p class="helper">핵심 BM 구조</p>
-              <p class="stat-value">무료 + 광고 + 유료 업셀</p>
-            </div>
-            <div class="stat-card">
-              <p class="helper">핵심 차별화</p>
-              <p class="stat-value">MBTI 톤 개인화</p>
-            </div>
-            <div class="notice">현재 페이지는 UI 검토용입니다. 실제 생성/결제는 서버 배포에서 동작합니다.</div>
+            <div class="notice">원하는 상담 스타일의 사주방을 고른 뒤 바로 결과를 확인할 수 있습니다.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top:0.6rem;">
+        <div class="container">
+          <div class="btn-row" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0.45rem;">
+            <a class="btn-ghost" href="./quick.html">🔮 1분 사주</a>
+            <a class="btn-ghost" href="./premium-70004.html">💑 궁합</a>
+            <a class="btn-ghost" href="./premium-70004.html">💰 금전운</a>
+            <a class="btn-ghost" href="./result.html">🌙 오늘의 운세</a>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <div class="container grid grid-3">
-          <article class="card card-pad">
-            <span class="badge">1. FREE ENTRY</span>
-            <h2 class="section-title" style="font-size:1.2rem;margin-top:0.7rem;">무료 1분 사주</h2>
-            <p class="section-copy">최소 입력으로 빠르게 결과를 확인하고 프리미엄으로 전환합니다.</p>
-            <ul class="list-clean" style="margin-top:0.8rem;">
-              <li>이름/성별/생년월일/시간</li>
-              <li>MBTI 미니 진단 4문항</li>
-              <li>결과 공유 CTA</li>
-            </ul>
-            <div class="btn-row" style="margin-top:0.9rem;">
-              <a class="btn" href="./quick.html">화면 열기</a>
-            </div>
-          </article>
+        <div class="container">
+          <p class="eyebrow">사주방 선택</p>
+          <h2 class="section-title">스페셜리스트 사주방 카드</h2>
+          <div class="grid grid-2">
+            <article class="card card-pad">
+              <img class="room-character" src="./assets/img/ichijou/2026-03-02-03-07-cheongun.png" alt="청운 윤태섭 캐릭터" />
+              <span class="badge">신년/인생 흐름</span>
+              <h3 class="section-title" style="font-size:1.1rem;margin-top:0.7rem;">청운 윤태섭 사주방</h3>
+              <p class="section-copy">평생운·신년운세·자녀운 중심으로 흐름을 짚어드립니다.</p>
+              <a class="btn" href="./premium-20022.html" style="margin-top:0.9rem;">사주방 입장</a>
+            </article>
 
-          <article class="card card-pad">
-            <span class="badge">2. PREMIUM LANDING</span>
-            <h2 class="section-title" style="font-size:1.2rem;margin-top:0.7rem;">프리미엄 상세 리포트</h2>
-            <p class="section-copy">긴 스토리텔링 랜딩 + 긴급성 요소 + 입력 폼으로 전환 유도.</p>
-            <ul class="list-clean" style="margin-top:0.8rem;">
-              <li>할인 가격/카운트다운</li>
-              <li>리포트 구성 섹션</li>
-              <li>고정 CTA 구조</li>
-            </ul>
-            <div class="btn-row" style="margin-top:0.9rem;">
-              <a class="btn" href="./premium-20022.html">화면 열기</a>
-              <a class="btn-secondary" href="./premium-70004.html">패키지 보기</a>
-            </div>
-          </article>
+            <article class="card card-pad">
+              <img class="room-character" src="./assets/img/ichijou/2026-03-02-03-07-seyeon.png" alt="세연보살 캐릭터" />
+              <span class="badge">연애/재물 복합</span>
+              <h3 class="section-title" style="font-size:1.1rem;margin-top:0.7rem;">세연보살 사주방</h3>
+              <p class="section-copy">관계와 재물 흐름을 함께 보고 바로 실행할 행동을 제안합니다.</p>
+              <a class="btn" href="./premium-70004.html" style="margin-top:0.9rem;">사주방 입장</a>
+            </article>
 
-          <article class="card card-pad">
-            <span class="badge">3. RESULT + MYPAGE</span>
-            <h2 class="section-title" style="font-size:1.2rem;margin-top:0.7rem;">결과/재조회</h2>
-            <p class="section-copy">MBTI 톤 개인화 결과와 결제/리딤/마이페이지 검토.</p>
-            <ul class="list-clean" style="margin-top:0.8rem;">
-              <li>핵심 한 줄 + 액션 3개</li>
-              <li>공유 버튼 영역</li>
-              <li>내역 테이블</li>
-            </ul>
-            <div class="btn-row" style="margin-top:0.9rem;">
-              <a class="btn" href="./result.html">결과 화면</a>
-              <a class="btn-secondary" href="./mypage.html">마이페이지</a>
-            </div>
-          </article>
+            <article class="card card-pad">
+              <img class="room-character" src="./assets/img/ichijou/2026-03-02-03-07-hwaryeon.png" alt="화련무녀 캐릭터" />
+              <span class="badge">연애/결혼/재회</span>
+              <h3 class="section-title" style="font-size:1.1rem;margin-top:0.7rem;">화련무녀 사주방</h3>
+              <p class="section-copy">연애 흐름과 관계 전환 시점을 구체적으로 짚어드립니다.</p>
+              <a class="btn" href="./premium-70004.html" style="margin-top:0.9rem;">사주방 입장</a>
+            </article>
+
+            <article class="card card-pad">
+              <img class="room-character" src="./assets/img/ichijou/2026-03-02-03-07-myeongwol.png" alt="명월아씨 캐릭터" />
+              <span class="badge">궁합/연분</span>
+              <h3 class="section-title" style="font-size:1.1rem;margin-top:0.7rem;">명월아씨 사주방</h3>
+              <p class="section-copy">상대와의 궁합 포인트와 충돌 구간을 보기 쉽게 정리합니다.</p>
+              <a class="btn" href="./premium-20022.html" style="margin-top:0.9rem;">사주방 입장</a>
+            </article>
+
+            <article class="card card-pad">
+              <img class="room-character" src="./assets/img/ichijou/2026-03-02-03-07-ai-persona.png" alt="AI 성향분석 캐릭터" />
+              <span class="badge">AI 성향분석</span>
+              <h3 class="section-title" style="font-size:1.1rem;margin-top:0.7rem;">AI 성향분석 사주방</h3>
+              <p class="section-copy">MBTI 성향과 사주 흐름을 함께 해석해, 지금 바로 쓸 행동 가이드를 제안합니다.</p>
+              <a class="btn" href="./quick.html" style="margin-top:0.9rem;">무료로 체험하기</a>
+            </article>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="site-footer__inner">UI 프리뷰 링크: https://hislegend.github.io/ai-saju-mvp/</div>
+      <div class="site-footer__inner">공개 확인 링크: https://hislegend.github.io/ai-saju-mvp/</div>
     </footer>
 
     <script src="./assets/ui.js"></script>
