@@ -97,6 +97,57 @@
     });
   }
 
+  var mbtiRoot = document.querySelector('[data-mbti-root]');
+  if (mbtiRoot) {
+    var mbtiData = {
+      ENFP: {
+        core: '기회가 왔을 때 빠르게 사람을 모아 실행하면 성과가 커집니다.',
+        risk: '결정이 늦어지면 집중력이 흩어지고 체력 소모가 커집니다.',
+        action: '하루 1개 핵심 과제만 완료하는 방식으로 속도를 유지하세요.'
+      },
+      ENTJ: {
+        core: '이번 주는 강한 결단이 운을 끌어올립니다. 주도권을 먼저 잡는 편이 유리합니다.',
+        risk: '완벽주의로 일정이 밀리면 오히려 기회를 놓칩니다.',
+        action: '회의 전에 결론 1문장 + 근거 3개를 먼저 정리해 전달하세요.'
+      },
+      INFJ: {
+        core: '관계 흐름이 실질 성과를 좌우합니다. 신뢰를 쌓는 대화가 금전운까지 연결됩니다.',
+        risk: '감정 피로를 방치하면 판단이 느려집니다.',
+        action: '하루 20분 회복 루틴(산책/정리)을 고정해 에너지를 지키세요.'
+      },
+      ISTJ: {
+        core: '안정적인 루틴이 운을 키우는 시기입니다. 작은 개선이 누적 이익으로 이어집니다.',
+        risk: '변화 회피로 인해 성장 타이밍을 놓칠 수 있습니다.',
+        action: '이번 주 1회는 익숙하지 않은 제안도 테스트해 데이터로 판단하세요.'
+      }
+    };
+
+    var coreEl = mbtiRoot.querySelector('[data-mbti-core]');
+    var riskEl = mbtiRoot.querySelector('[data-mbti-risk]');
+    var actionEl = mbtiRoot.querySelector('[data-mbti-action]');
+    var mbtiButtons = mbtiRoot.querySelectorAll('[data-mbti-option]');
+
+    function renderMbti(type) {
+      var item = mbtiData[type];
+      if (!item || !coreEl || !riskEl || !actionEl) return;
+      coreEl.textContent = item.core;
+      riskEl.textContent = item.risk;
+      actionEl.textContent = item.action;
+      mbtiButtons.forEach(function (btn) {
+        btn.classList.toggle('is-active', btn.getAttribute('data-mbti-option') === type);
+      });
+    }
+
+    mbtiButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var type = btn.getAttribute('data-mbti-option');
+        renderMbti(type);
+      });
+    });
+
+    renderMbti('ENFP');
+  }
+
   var copyBtn = document.querySelector('[data-copy-result-link]');
   if (copyBtn) {
     copyBtn.addEventListener('click', function () {

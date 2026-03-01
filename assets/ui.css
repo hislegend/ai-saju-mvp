@@ -557,6 +557,69 @@ main {
   margin-bottom: 0.8rem;
 }
 
+.mbti-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.mbti-chip {
+  border: 1px solid #3a3a55;
+  background: #141428;
+  color: #d8d8e6;
+  border-radius: 999px;
+  padding: 0.36rem 0.72rem;
+  min-height: 38px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.mbti-chip.is-active {
+  background: #e63946;
+  border-color: #e63946;
+  color: #fff;
+}
+
+.mbti-dynamic-grid {
+  display: grid;
+  gap: 0.52rem;
+}
+
+.mbti-dynamic-item {
+  border: 1px solid #2a2a3e;
+  border-radius: 12px;
+  padding: 0.7rem;
+  background: #15152a;
+}
+
+.timeline-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 0.6rem;
+  padding: 0.62rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid #2a2a3e;
+  background: #141428;
+  color: #d8d8e6;
+}
+
+.timeline-item strong {
+  color: #fff;
+}
+
+.timeline-item.is-good {
+  border-color: #2f6f57;
+}
+
+.timeline-item.is-watch {
+  border-color: #7d6030;
+}
+
 .score-ring {
   width: 78px;
   height: 78px;
