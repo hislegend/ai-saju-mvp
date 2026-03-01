@@ -44,19 +44,33 @@
           </article>
 
           <article class="card card-pad">
-            <p class="eyebrow">Input</p>
+            <p class="eyebrow">입력 단계 (모바일)</p>
             <h2 class="section-title" style="margin-bottom:0.45rem;">무료 결과 생성</h2>
-            <p class="section-copy" style="margin-bottom:1rem;">최소 입력만으로 바로 리딩을 만들어드립니다.</p>
+            <p class="section-copy" style="margin-bottom:1rem;">2단계로 나눠 입력 부담을 줄였습니다.</p>
+
+            <div class="step-progress">
+              <div class="step-progress__head">
+                <strong>1/2 단계</strong>
+                <span>기본 정보 입력</span>
+              </div>
+              <div class="step-progress__bar"><span style="width:50%"></span></div>
+            </div>
 
             <div class="form-grid">
-              <div class="form-group">
+              <div class="form-group span-2">
                 <label class="label">이름</label>
                 <input class="input" type="text" placeholder="홍길동" value="홍길동" />
               </div>
-              <div class="form-group">
+
+              <div class="form-group span-2">
                 <label class="label">성별</label>
-                <select class="select"><option>여성</option><option>남성</option><option>기타</option></select>
+                <div class="seg-row">
+                  <button class="seg-btn active">여성</button>
+                  <button class="seg-btn">남성</button>
+                  <button class="seg-btn">기타</button>
+                </div>
               </div>
+
               <div class="form-group">
                 <label class="label">달력 기준</label>
                 <select class="select"><option>양력</option><option>음력</option></select>
@@ -65,21 +79,27 @@
                 <label class="label">생년월일</label>
                 <input class="input" type="date" value="1994-04-17" />
               </div>
-              <div class="form-group">
+
+              <div class="form-group span-2">
                 <label class="label">태어난 시간</label>
                 <input class="input" type="time" value="08:30" />
-              </div>
-              <div class="form-group">
-                <label class="label">MBTI</label>
-                <select class="select"><option>모름 / 선택 안함</option><option selected>ENFP</option></select>
-              </div>
-              <div class="form-group span-2">
                 <label class="check-row"><input type="checkbox" /> 태어난 시간을 모릅니다.</label>
-                <label class="check-row"><input type="checkbox" checked /> 이벤트/프로모션 안내 수신 동의 (선택)</label>
               </div>
             </div>
 
+            <div class="step-actions" style="margin-top:0.9rem;">
+              <button class="btn-secondary">이전 단계</button>
+              <button class="btn" data-fake-next="./result.html">다음 단계</button>
+            </div>
+
             <div class="card" style="padding:0.8rem;background:#f8f4ec;margin-top:0.85rem;">
+              <div class="step-progress" style="margin-bottom:0.6rem;">
+                <div class="step-progress__head">
+                  <strong>2/2 단계</strong>
+                  <span>성향/옵션 선택</span>
+                </div>
+                <div class="step-progress__bar"><span style="width:100%"></span></div>
+              </div>
               <p class="label">MBTI 4문항 간이 진단 (UI)</p>
               <p class="helper" style="margin:0 0 0.7rem;">모를 때만 사용. 결과 톤 개인화를 위한 임시 타입 산출.</p>
               <div class="btn-row">
@@ -88,6 +108,7 @@
                 <button class="btn-ghost">T / F</button>
                 <button class="btn-ghost">J / P</button>
               </div>
+              <label class="check-row" style="margin-top:0.7rem;"><input type="checkbox" checked /> 이벤트/프로모션 안내 수신 동의 (선택)</label>
             </div>
 
             <div class="btn-row" style="margin-top:0.9rem;">
