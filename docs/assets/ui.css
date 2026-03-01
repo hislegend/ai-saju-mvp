@@ -80,7 +80,7 @@ main {
 }
 
 .grid-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
 }
 
 .grid-3 {
@@ -437,10 +437,15 @@ main {
   font-size: 0.83rem;
 }
 
+@media (min-width: 768px) {
+  .grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 980px) {
   .grid-3,
   .hero-shell,
-  .grid-2,
   .hero-cta,
   .form-grid {
     grid-template-columns: 1fr;
