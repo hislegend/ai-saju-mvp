@@ -61,7 +61,7 @@
                 <div class="form-grid">
                   <div class="form-group span-2">
                     <label class="label">이름</label>
-                    <input class="input" type="text" placeholder="홍길동" value="홍길동" />
+                    <input class="input" type="text" placeholder="홍길동" value="홍길동" data-input-name />
                   </div>
 
                   <div class="form-group span-2">
@@ -97,20 +97,23 @@
 
               <div data-step-panel="2" class="is-hidden">
                 <div class="card" style="padding:0.8rem;background:#f8f4ec;margin-top:0.85rem;">
-                  <p class="label">MBTI 4문항 간이 진단 (UI)</p>
-                  <p class="helper" style="margin:0 0 0.7rem;">모를 때만 사용. 결과 톤 개인화를 위한 임시 타입 산출.</p>
-                  <div class="btn-row">
-                    <button type="button" class="btn-ghost">E / I</button>
-                    <button type="button" class="btn-ghost">S / N</button>
-                    <button type="button" class="btn-ghost">T / F</button>
-                    <button type="button" class="btn-ghost">J / P</button>
+                  <p class="label">MBTI 입력</p>
+                  <p class="helper" style="margin:0 0 0.7rem;">처음 입력한 MBTI를 기준으로 결과 전체를 개인화합니다.</p>
+                  <div class="form-group">
+                    <label class="label">나의 MBTI</label>
+                    <select class="select" data-input-mbti>
+                      <option>ENFP</option><option>ENTP</option><option>ENFJ</option><option>ENTJ</option>
+                      <option>INFP</option><option>INTP</option><option>INFJ</option><option>INTJ</option>
+                      <option>ESFP</option><option>ESTP</option><option>ESFJ</option><option>ESTJ</option>
+                      <option>ISFP</option><option>ISTP</option><option>ISFJ</option><option>ISTJ</option>
+                    </select>
                   </div>
                   <label class="check-row" style="margin-top:0.7rem;"><input type="checkbox" checked /> 이벤트/프로모션 안내 수신 동의 (선택)</label>
                 </div>
 
                 <div class="step-actions" style="margin-top:0.9rem;">
                   <button type="button" class="btn-secondary" data-step-back>이전 단계</button>
-                  <button type="button" class="btn" data-fake-next="./result.html">무료 결과 생성</button>
+                  <button type="button" class="btn" data-generate-result>무료 결과 생성</button>
                 </div>
 
                 <div class="btn-row" style="margin-top:0.7rem;">
