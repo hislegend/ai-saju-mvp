@@ -28,11 +28,12 @@ body {
 body {
   color: var(--ink);
   font-family: "Noto Sans KR", sans-serif;
+  font-size: 14px;
   background:
     radial-gradient(circle at 12% 18%, rgb(252 230 200 / 55%), transparent 36%),
     radial-gradient(circle at 90% 2%, rgb(198 229 220 / 32%), transparent 22%),
     var(--bg);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 a {
@@ -45,8 +46,9 @@ main {
 }
 
 .container {
-  width: min(var(--max), calc(100% - 2rem));
+  width: min(var(--max), 100%);
   margin: 0 auto;
+  padding: 0 16px;
 }
 
 .section {
@@ -112,7 +114,8 @@ main {
 
 .btn,
 .btn-secondary,
-.btn-ghost {
+.btn-ghost,
+.seg-btn {
   border: 0;
   border-radius: 12px;
   cursor: pointer;
@@ -123,6 +126,7 @@ main {
   align-items: center;
   gap: 0.45rem;
   padding: 0.84rem 1rem;
+  min-height: 44px;
 }
 
 .btn {
@@ -316,6 +320,8 @@ main {
   border-radius: 12px;
   background: #fff;
   padding: 0.68rem 0.82rem;
+  min-height: 44px;
+  font-size: 16px;
 }
 
 .helper {
@@ -368,8 +374,6 @@ main {
 
 .seg-btn {
   border: 1px solid var(--line);
-  border-radius: 12px;
-  min-height: 44px;
   background: #fff;
   font-weight: 600;
 }
