@@ -16,7 +16,7 @@ export default function QuickPage() {
       <section className="section">
         <div className="container grid grid-2">
           <article className="card card-pad">
-            <p className="eyebrow">Quick Funnel</p>
+            <p className="eyebrow">지금 바로 확인</p>
             <h1 className="section-title" style={{ marginBottom: '0.6rem' }}>
               무료 1분 사주
             </h1>

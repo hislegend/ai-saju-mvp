@@ -43,6 +43,7 @@ export function ReadingForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formStarted, setFormStarted] = useState(false);
+  const [step, setStep] = useState<1 | 2>(1);
 
   const selectedMbti = useMemo(() => mbtiType.toUpperCase(), [mbtiType]);
 
@@ -69,8 +70,11 @@ export function ReadingForm({
     };
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function goNextStep() {
+    if (!name.trim()) {
+      setError('이름을 입력해주세요.');
+      return;
+    }
 
     if (!birthDate) {
       setError('생년월일을 입력해주세요.');
@@ -79,6 +83,18 @@ export function ReadingForm({
 
     if (!timeUnknown && !birthTime) {
       setError('태어난 시간을 모르시면 "시간 모름"을 체크해주세요.');
+      return;
+    }
+
+    setError(null);
+    setStep(2);
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (step === 1) {
+      goNextStep();
       return;
     }
 
@@ -134,166 +150,192 @@ export function ReadingForm({
       </p>
 
       <form id={formId} className="reading-form" onSubmit={handleSubmit} onFocus={markFormStarted}>
-        <div className="form-grid">
-          <div className="form-group">
-            <label className="label" htmlFor="name">
-              이름
-            </label>
-            <input
-              id="name"
-              className="input"
-              type="text"
-              maxLength={40}
-              placeholder="홍길동"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+        <div className="step-progress">
+          <div className="step-progress__head">
+            <strong>{step}/2 단계</strong>
+            <span>{step === 1 ? '기본 정보 입력' : '성향/옵션 선택'}</span>
           </div>
-
-          <div className="form-group">
-            <label className="label" htmlFor="gender">
-              성별
-            </label>
-            <select
-              id="gender"
-              className="select"
-              value={gender}
-              onChange={(e) => setGender(e.target.value as 'male' | 'female' | 'other')}
-            >
-              <option value="female">여성</option>
-              <option value="male">남성</option>
-              <option value="other">기타</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label className="label" htmlFor="calendarType">
-              달력 기준
-            </label>
-            <select
-              id="calendarType"
-              className="select"
-              value={calendarType}
-              onChange={(e) => setCalendarType(e.target.value as 'solar' | 'lunar')}
-            >
-              <option value="solar">양력</option>
-              <option value="lunar">음력</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label className="label" htmlFor="birthDate">
-              생년월일
-            </label>
-            <input
-              id="birthDate"
-              className="input"
-              type="date"
-              value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="label" htmlFor="birthTime">
-              태어난 시간
-            </label>
-            <input
-              id="birthTime"
-              className="input"
-              type="time"
-              value={birthTime}
-              onChange={(e) => setBirthTime(e.target.value)}
-              disabled={timeUnknown}
-              required={!timeUnknown}
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="label" htmlFor="mbtiType">
-              MBTI
-            </label>
-            <select
-              id="mbtiType"
-              className="select"
-              value={selectedMbti}
-              onChange={(e) => {
-                const value = e.target.value;
-                setMbtiType(value);
-                if (value) {
-                  setShowMiniQuiz(false);
-                  setAdditionalAnswers(null);
-                }
-              }}
-            >
-              <option value="">모름 / 선택 안함</option>
-              {mbtiTypes.map((type) => (
-                <option value={type} key={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group span-2" style={{ gap: '0.6rem' }}>
-            <label className="check-row">
-              <input
-                type="checkbox"
-                checked={timeUnknown}
-                onChange={(e) => {
-                  setTimeUnknown(e.target.checked);
-                  if (e.target.checked) setBirthTime('');
-                }}
-              />
-              태어난 시간을 모릅니다.
-            </label>
-
-            <label className="check-row">
-              <input
-                type="checkbox"
-                checked={marketingConsent}
-                onChange={(e) => setMarketingConsent(e.target.checked)}
-              />
-              이벤트/프로모션 안내 수신에 동의합니다. (선택)
-            </label>
+          <div className="step-progress__bar">
+            <span style={{ width: step === 1 ? '50%' : '100%' }} />
           </div>
         </div>
 
-        {!selectedMbti ? (
+        {step === 1 ? (
           <>
-            <button
-              type="button"
-              className="btn-ghost"
-              onClick={() => setShowMiniQuiz((prev) => !prev)}
-              style={{ justifySelf: 'start' }}
-            >
-              {showMiniQuiz ? '미니 MBTI 진단 닫기' : 'MBTI 모르면 4문항 간이 진단'}
+            <div className="form-grid">
+              <div className="form-group span-2">
+                <label className="label" htmlFor="name">
+                  이름
+                </label>
+                <input
+                  id="name"
+                  className="input"
+                  type="text"
+                  maxLength={40}
+                  placeholder="홍길동"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group span-2">
+                <label className="label">성별</label>
+                <div className="seg-row">
+                  <button type="button" className={gender === 'female' ? 'seg-btn active' : 'seg-btn'} onClick={() => setGender('female')}>
+                    여성
+                  </button>
+                  <button type="button" className={gender === 'male' ? 'seg-btn active' : 'seg-btn'} onClick={() => setGender('male')}>
+                    남성
+                  </button>
+                  <button type="button" className={gender === 'other' ? 'seg-btn active' : 'seg-btn'} onClick={() => setGender('other')}>
+                    기타
+                  </button>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="label" htmlFor="calendarType">
+                  달력 기준
+                </label>
+                <select
+                  id="calendarType"
+                  className="select"
+                  value={calendarType}
+                  onChange={(e) => setCalendarType(e.target.value as 'solar' | 'lunar')}
+                >
+                  <option value="solar">양력</option>
+                  <option value="lunar">음력</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label className="label" htmlFor="birthDate">
+                  생년월일
+                </label>
+                <input
+                  id="birthDate"
+                  className="input"
+                  type="date"
+                  value={birthDate}
+                  onChange={(e) => setBirthDate(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group span-2">
+                <label className="label" htmlFor="birthTime">
+                  태어난 시간
+                </label>
+                <input
+                  id="birthTime"
+                  className="input"
+                  type="time"
+                  value={birthTime}
+                  onChange={(e) => setBirthTime(e.target.value)}
+                  disabled={timeUnknown}
+                  required={!timeUnknown}
+                />
+                <label className="check-row">
+                  <input
+                    type="checkbox"
+                    checked={timeUnknown}
+                    onChange={(e) => {
+                      setTimeUnknown(e.target.checked);
+                      if (e.target.checked) setBirthTime('');
+                    }}
+                  />
+                  태어난 시간을 모릅니다.
+                </label>
+              </div>
+            </div>
+
+            {error ? <p className="error">{error}</p> : null}
+
+            <button className="btn" type="button" onClick={goNextStep}>
+              다음 단계로
             </button>
-
-            {showMiniQuiz ? (
-              <MbtiMiniQuiz
-                onResolved={({ mbtiType: resolved, confidence, answers }) => {
-                  setMbtiType(resolved);
-                  setMbtiConfidence(confidence);
-                  setAdditionalAnswers(answers);
-                  setShowMiniQuiz(false);
-                }}
-              />
-            ) : null}
           </>
-        ) : null}
+        ) : (
+          <>
+            <div className="form-grid">
+              <div className="form-group span-2">
+                <label className="label" htmlFor="mbtiType">
+                  MBTI (선택)
+                </label>
+                <select
+                  id="mbtiType"
+                  className="select"
+                  value={selectedMbti}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setMbtiType(value);
+                    if (value) {
+                      setShowMiniQuiz(false);
+                      setAdditionalAnswers(null);
+                    }
+                  }}
+                >
+                  <option value="">모름 / 선택 안함</option>
+                  {mbtiTypes.map((type) => (
+                    <option value={type} key={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-        {mbtiConfidence ? (
-          <p className="helper">간이 진단 신뢰도: {(mbtiConfidence * 100).toFixed(0)}%</p>
-        ) : null}
+              <div className="form-group span-2" style={{ gap: '0.6rem' }}>
+                <label className="check-row">
+                  <input
+                    type="checkbox"
+                    checked={marketingConsent}
+                    onChange={(e) => setMarketingConsent(e.target.checked)}
+                  />
+                  이벤트/프로모션 안내 수신에 동의합니다. (선택)
+                </label>
+              </div>
+            </div>
 
-        {error ? <p className="error">{error}</p> : null}
+            {!selectedMbti ? (
+              <>
+                <button
+                  type="button"
+                  className="btn-ghost"
+                  onClick={() => setShowMiniQuiz((prev) => !prev)}
+                  style={{ justifySelf: 'start' }}
+                >
+                  {showMiniQuiz ? '미니 MBTI 진단 닫기' : 'MBTI 모르면 4문항 간이 진단'}
+                </button>
 
-        <button className="btn" type="submit" disabled={loading}>
-          {loading ? '결과 생성 중...' : submitLabel || (mode === 'premium' ? '프리미엄 결과 보러가기' : '무료 결과 보기')}
-        </button>
+                {showMiniQuiz ? (
+                  <MbtiMiniQuiz
+                    onResolved={({ mbtiType: resolved, confidence, answers }) => {
+                      setMbtiType(resolved);
+                      setMbtiConfidence(confidence);
+                      setAdditionalAnswers(answers);
+                      setShowMiniQuiz(false);
+                    }}
+                  />
+                ) : null}
+              </>
+            ) : null}
+
+            {mbtiConfidence ? <p className="helper">간이 진단 신뢰도: {(mbtiConfidence * 100).toFixed(0)}%</p> : null}
+            {error ? <p className="error">{error}</p> : null}
+
+            <div className="step-actions">
+              <button className="btn-secondary" type="button" onClick={() => setStep(1)} disabled={loading}>
+                이전 단계
+              </button>
+              <button className="btn" type="submit" disabled={loading}>
+                {loading
+                  ? '결과 생성 중...'
+                  : submitLabel || (mode === 'premium' ? '프리미엄 결과 보러가기' : '무료 결과 보기')}
+              </button>
+            </div>
+          </>
+        )}
 
         <p className="helper">
           결제형 서비스는 생성 후 결제 단계로 이동합니다. 무료 결과는 정책에 따라 단기 보관됩니다.
