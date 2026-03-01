@@ -1,5 +1,13 @@
+/**
+ * 사주 엔진 — AI 기반 해석 (Gemini 3.1 Pro)
+ * 기존 해시+고정 문장 로직을 완전 교체
+ */
+
 import { CalendarType, Gender, ReadingMode } from '@prisma/client';
+import { calculateSajuPalza } from '@/lib/saju-calendar';
+import { interpretSaju, type AIReadingResult } from '@/lib/ai-interpreter';
 import { getMbtiTone, normalizeMbtiType } from '@/lib/mbti';
+import { getCachedResult, setCachedResult } from '@/lib/reading-cache';
 
 export type ReadingInput = {
   name: string;
@@ -10,6 +18,7 @@ export type ReadingInput = {
   timeUnknown: boolean;
   mbtiType?: string | null;
   mode: ReadingMode;
+  character?: '청운' | '세연' | '화련';
 };
 
 export type BuiltSection = {
@@ -19,124 +28,126 @@ export type BuiltSection = {
   displayOrder: number;
 };
 
-function hashValue(seed: string) {
-  let hash = 0;
-  for (let i = 0; i < seed.length; i += 1) {
-    hash = (hash * 31 + seed.charCodeAt(i)) % 100000;
+function selectCharacter(mode: ReadingMode): '청운' | '세연' | '화련' {
+  // 기본 캐릭터 선택 (추후 상품별 분기)
+  if (mode === ReadingMode.PREMIUM) return '청운';
+  return '청운';
+}
+
+function aiResultToSections(result: AIReadingResult, mode: ReadingMode): BuiltSection[] {
+  const isPremium = mode === ReadingMode.PREMIUM;
+  const sections: BuiltSection[] = [];
+  let order = 1;
+
+  // 핵심 한 줄
+  sections.push({
+    sectionType: 'CORE',
+    title: '핵심 한 줄',
+    content: result.coreSummary + (isPremium ? '' : '\n\n프리미엄에서 월별 상세 전략을 확인할 수 있습니다.'),
+    displayOrder: order++,
+  });
+
+  // 총운 점수
+  sections.push({
+    sectionType: 'SCORE',
+    title: '총운 점수',
+    content: JSON.stringify({ overall: result.overallScore, sections: {
+      love: result.sections.love.score,
+      money: result.sections.money.score,
+      career: result.sections.career.score,
+      health: result.sections.health.score,
+      relationship: result.sections.relationship.score,
+    }}),
+    displayOrder: order++,
+  });
+
+  // 5개 섹션
+  const sectionMap: [string, string, keyof AIReadingResult['sections']][] = [
+    ['LOVE', '연애운', 'love'],
+    ['MONEY', '재물운', 'money'],
+    ['CAREER', '직업운', 'career'],
+    ['HEALTH', '건강운', 'health'],
+    ['RELATIONSHIP', '대인관계', 'relationship'],
+  ];
+
+  for (const [type, title, key] of sectionMap) {
+    const sec = result.sections[key];
+    const content = isPremium
+      ? `${sec.summary}\n\n${sec.detail}`
+      : sec.summary;
+    sections.push({ sectionType: type, title, content, displayOrder: order++ });
   }
-  return hash;
-}
 
-function pickByHash<T>(list: T[], hash: number): T {
-  return list[hash % list.length];
-}
-
-const coreMessages = [
-  '이번 흐름은 기반을 정리할수록 기회가 빨리 들어옵니다.',
-  '작은 반복 개선이 큰 반전을 만드는 패턴이 강합니다.',
-  '관계와 재물에서 동시에 선택과 집중이 필요한 시기입니다.',
-  '지금은 확장보다 구조 재정비가 수익 안정에 유리합니다.',
-];
-
-const loveMessages = [
-  '감정보다 기대치 조율이 연애운을 회복시키는 핵심입니다.',
-  '연락 빈도보다 대화의 질이 관계 안정성을 좌우합니다.',
-  '상대의 의도를 먼저 확인하면 불필요한 오해를 줄일 수 있습니다.',
-  '미해결 감정 이슈를 이번 주에 한 번은 정리해야 흐름이 풀립니다.',
-];
-
-const moneyMessages = [
-  '현금흐름을 주 단위로 끊어보면 누수 지점이 명확해집니다.',
-  '고정비 재점검만으로도 이번 달 체감 여유가 생길 가능성이 큽니다.',
-  '수익 확대보다 손실 방지 전략이 먼저 작동해야 합니다.',
-  '단기 이익보다 회전율 관리가 더 큰 차이를 만듭니다.',
-];
-
-const relationMessages = [
-  '협업에서는 역할 경계선이 분명할수록 마찰이 줄어듭니다.',
-  '불편한 피드백을 빠르게 주고받으면 관계운이 회복됩니다.',
-  '한 번의 솔직한 정리가 장기 갈등을 줄일 수 있습니다.',
-  '작은 약속의 이행이 신뢰를 크게 끌어올립니다.',
-];
-
-const monthlyPoints = [
-  '1주차: 정리, 2주차: 연결, 3주차: 확장, 4주차: 회수 전략이 유효합니다.',
-  '초반에는 정보 수집, 중반에는 실행, 후반에는 조정이 안정적입니다.',
-  '상승 구간은 2~3주차, 보수 운영은 4주차에 권장됩니다.',
-  '초반 갈등 관리에 성공하면 후반 재물 흐름이 안정됩니다.',
-];
-
-export function buildReadingSections(input: ReadingInput): BuiltSection[] {
-  const baseSeed = `${input.name}-${input.birthDate}-${input.birthTime ?? 'unknown'}-${input.calendarType}`;
-  const hash = hashValue(baseSeed);
-  const mbtiType = normalizeMbtiType(input.mbtiType);
-  const tone = getMbtiTone(mbtiType);
-
-  const coreLine = pickByHash(coreMessages, hash);
-  const loveLine = pickByHash(loveMessages, hash + 7);
-  const moneyLine = pickByHash(moneyMessages, hash + 13);
-  const relationLine = pickByHash(relationMessages, hash + 19);
-  const monthLine = pickByHash(monthlyPoints, hash + 23);
-
-  const premiumHint =
-    input.mode === ReadingMode.PREMIUM
-      ? '프리미엄 분석에서는 월별 실행 포인트와 관계/재물 교차 시나리오를 확장 제공합니다.'
-      : '무료 요약입니다. 프리미엄에서 월별 상세 전략을 확인할 수 있습니다.';
-
-  return [
-    {
-      sectionType: 'CORE',
-      title: '핵심 한 줄',
-      content: `${coreLine}\n${premiumHint}`,
-      displayOrder: 1,
-    },
-    {
-      sectionType: 'LOVE',
-      title: '연애 운세 포인트',
-      content: loveLine,
-      displayOrder: 2,
-    },
-    {
-      sectionType: 'MONEY',
-      title: '재물 운세 포인트',
-      content: moneyLine,
-      displayOrder: 3,
-    },
-    {
-      sectionType: 'RELATION',
-      title: '관계 운세 포인트',
-      content: relationLine,
-      displayOrder: 4,
-    },
-    {
+  // 월별 흐름 (프리미엄만)
+  if (isPremium && result.monthlyFlow?.length) {
+    const monthlyContent = result.monthlyFlow
+      .map((m) => `${m.month}월 [${m.keyword}]: ${m.advice}`)
+      .join('\n');
+    sections.push({
       sectionType: 'MONTHLY',
       title: '월별 흐름',
-      content: monthLine,
-      displayOrder: 5,
-    },
-    {
+      content: monthlyContent,
+      displayOrder: order++,
+    });
+  }
+
+  // MBTI 맞춤 가이드
+  if (result.mbtiGuide) {
+    const guideContent = isPremium
+      ? `[${result.mbtiGuide.type} 맞춤 가이드]\n\n강점: ${result.mbtiGuide.strengths}\n\n주의점: ${result.mbtiGuide.risks}\n\n실행 가이드:\n${result.mbtiGuide.actions.map((a, i) => `${i + 1}. ${a}`).join('\n')}`
+      : `[${result.mbtiGuide.type} 맞춤 가이드]\n\n강점: ${result.mbtiGuide.strengths}\n\n프리미엄에서 맞춤 행동 가이드를 확인하세요.`;
+    sections.push({
       sectionType: 'MBTI_GUIDE',
-      title: 'MBTI 맞춤 해석 톤',
-      content: tone.voice,
-      displayOrder: 6,
-    },
-    {
-      sectionType: 'STRENGTH',
-      title: '강점 활용법',
-      content: tone.strengths,
-      displayOrder: 7,
-    },
-    {
-      sectionType: 'WARNING',
-      title: '리스크 경고',
-      content: tone.risk,
-      displayOrder: 8,
-    },
-    {
-      sectionType: 'ACTIONS',
-      title: '이번 주 액션 3개',
-      content: `1) ${tone.actions[0]}\n2) ${tone.actions[1]}\n3) ${tone.actions[2]}`,
-      displayOrder: 9,
-    },
-  ];
+      title: 'MBTI 맞춤 가이드',
+      content: guideContent,
+      displayOrder: order++,
+    });
+  }
+
+  // 캐릭터 코멘트
+  if (result.characterComment) {
+    sections.push({
+      sectionType: 'CHARACTER_COMMENT',
+      title: '상담사 한 마디',
+      content: result.characterComment,
+      displayOrder: order++,
+    });
+  }
+
+  return sections;
+}
+
+export async function buildReadingSections(input: ReadingInput): Promise<BuiltSection[]> {
+  const mbtiType = normalizeMbtiType(input.mbtiType) || 'ENFP';
+  const character = input.character || selectCharacter(input.mode);
+
+  // 캐시 확인
+  const cacheKey = { name: input.name, birthDate: input.birthDate, birthTime: input.birthTime || '', mbtiType, character };
+  const cached = getCachedResult(cacheKey);
+  if (cached) {
+    console.log('[saju-engine] 캐시 히트');
+    return aiResultToSections(cached, input.mode);
+  }
+
+  // 사주 팔자 계산
+  const calType = input.calendarType === CalendarType.SOLAR ? 'solar' : 'lunar';
+  const sajuPalza = calculateSajuPalza({
+    birthDate: input.birthDate,
+    birthTime: input.timeUnknown ? null : input.birthTime,
+    calendarType: calType,
+  });
+
+  // AI 해석
+  const aiResult = await interpretSaju({
+    sajuPalza,
+    name: input.name,
+    mbtiType,
+    character,
+    gender: input.gender,
+  });
+
+  // 캐시 저장
+  setCachedResult(cacheKey, aiResult);
+
+  return aiResultToSections(aiResult, input.mode);
 }

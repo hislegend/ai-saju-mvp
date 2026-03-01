@@ -77,7 +77,7 @@ export async function createReadingWithSections(input: {
       })
     : null;
 
-  const sections = buildReadingSections({
+  const sections = await buildReadingSections({
     name: input.name,
     gender: normalizeGender(input.gender),
     calendarType: normalizeCalendarType(input.calendarType),
