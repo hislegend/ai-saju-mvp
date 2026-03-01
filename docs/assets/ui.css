@@ -695,6 +695,15 @@ main {
   padding-bottom: 90px;
 }
 
+.premium-theme-red .btn {
+  background: #e63946;
+  box-shadow: 0 10px 24px rgb(230 57 70 / 30%);
+}
+
+.premium-theme-red .btn:hover {
+  background: #cc2e3a;
+}
+
 .premium-mobile {
   display: grid;
   gap: 0.9rem;
