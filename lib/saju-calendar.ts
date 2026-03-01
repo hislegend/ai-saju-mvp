@@ -3,7 +3,6 @@
  * 양력/음력 → 천간지지 → 사주 팔자 산출
  */
 
-// @ts-expect-error korean-lunar-calendar has no types
 import KoreanLunarCalendar from 'korean-lunar-calendar';
 
 // 천간 (Heavenly Stems)
