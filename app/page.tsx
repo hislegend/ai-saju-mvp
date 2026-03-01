@@ -10,7 +10,7 @@ const PRODUCTS = [
   {
     name: '청운 사주방',
     specialty: '정통 사주 · 재물/커리어 집중',
-    image: '/characters/cheongun.png',
+    image: '/characters/cheongun.webp',
     slug: '20022',
     originalPrice: 19000,
     salePrice: 9900,
@@ -18,7 +18,7 @@ const PRODUCTS = [
   {
     name: '세연 사주방',
     specialty: '연애/관계 흐름 집중 해석',
-    image: '/characters/seyeon.png',
+    image: '/characters/seyeon.webp',
     slug: '70004',
     originalPrice: 19000,
     salePrice: 9900,
@@ -26,7 +26,7 @@ const PRODUCTS = [
   {
     name: '화련 사주방',
     specialty: '변화기 돌파 · 행동 전략',
-    image: '/characters/hwaryeon.png',
+    image: '/characters/hwaryeon.webp',
     slug: '20022',
     originalPrice: 19000,
     salePrice: 9900,

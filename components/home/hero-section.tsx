@@ -5,7 +5,7 @@ export function HeroSection() {
   return (
     <section className="home-hero-v2">
       <Image
-        src="/characters/cheongun.png"
+        src="/characters/cheongun.webp"
         alt="청운 캐릭터"
         fill
         sizes="100vw"
