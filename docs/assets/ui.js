@@ -76,4 +76,36 @@
       }
     });
   });
+
+  var accordion = document.querySelector('[data-accordion]');
+  if (accordion) {
+    var accItems = accordion.querySelectorAll('[data-acc-item]');
+    accItems.forEach(function (item) {
+      var trigger = item.querySelector('[data-acc-trigger]');
+      var panel = item.querySelector('[data-acc-panel]');
+      if (!trigger || !panel) return;
+
+      trigger.addEventListener('click', function () {
+        var expanded = trigger.getAttribute('aria-expanded') === 'true';
+        trigger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        panel.classList.toggle('is-hidden', expanded);
+        var mark = trigger.querySelector('span:last-child');
+        if (mark) {
+          mark.textContent = expanded ? '+' : '−';
+        }
+      });
+    });
+  }
+
+  var copyBtn = document.querySelector('[data-copy-result-link]');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      var link = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(link).then(function () {
+          copyBtn.textContent = '링크 복사 완료';
+        });
+      }
+    });
+  }
 })();
