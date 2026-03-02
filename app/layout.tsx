@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   },
   description:
     '무료 1분 사주부터 프리미엄 상세 리포트까지. MBTI 해석 톤 개인화로 같은 사주도 다르게 읽어드립니다.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
