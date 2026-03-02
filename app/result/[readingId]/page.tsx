@@ -6,6 +6,7 @@ import { BlurSection } from '@/components/result/blur-section';
 import { CategoryCard } from '@/components/result/category-card';
 import { ScoreCircle } from '@/components/result/score-circle';
 import { ShareButtons } from '@/components/result/share-buttons';
+import { PdfDownloadButton } from '@/components/result/pdf-download-button';
 
 type ResultPageProps = {
   params: Promise<{ readingId: string }>;
@@ -322,11 +323,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
             </article>
           )}
 
-          {isPremiumCompleted ? (
-            <button type="button" className="btn-secondary" disabled>
-              PDF 다운로드 (Phase 3 예정)
-            </button>
-          ) : null}
+          {isPremiumCompleted ? <PdfDownloadButton /> : null}
 
           {isPremiumLocked ? (
             <article className="result-alert">

@@ -1516,3 +1516,66 @@ textarea {
   line-height: 1.5;
   white-space: pre-wrap;
 }
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .site-header,
+  .site-footer,
+  .social-proof,
+  .home-social-toast,
+  .result-bottom-fixed,
+  .print-hidden {
+    display: none !important;
+  }
+
+  .app-main {
+    min-height: auto;
+    padding-bottom: 0;
+  }
+
+  .result-v2 {
+    background: #fff !important;
+    color: #111 !important;
+    padding: 0 !important;
+  }
+
+  .result-v2-shell {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    gap: 0.5rem;
+  }
+
+  .result-top-card,
+  .result-score-card,
+  .fortune-card,
+  .detail-card,
+  .character-card,
+  .result-alert,
+  .blur-block,
+  .blur-block-content,
+  .monthly-item {
+    background: #fff !important;
+    color: #111 !important;
+    border-color: #ddd !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
+
+  .blur-block-overlay {
+    display: none !important;
+  }
+
+  .fortune-lines,
+  .fortune-detail,
+  .detail-card p,
+  .detail-card li,
+  .character-card blockquote,
+  .monthly-item span {
+    color: #222 !important;
+  }
+}
