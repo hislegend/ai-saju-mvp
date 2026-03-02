@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageTracker } from '@/components/common/page-tracker';
 import { CategoryTabs } from '@/components/home/category-tabs';
@@ -5,6 +6,24 @@ import { HeroSection } from '@/components/home/hero-section';
 import { ProductCard } from '@/components/home/product-card';
 import { ReviewSection } from '@/components/home/review-section';
 import { SocialProofToast } from '@/components/home/social-proof-toast';
+
+
+export const metadata: Metadata = {
+  title: 'AI 사주 랩 | 무료 1분 사주 + MBTI 맞춤 해석',
+  description: '메인에서 바로 캐릭터 사주방을 선택하고 무료 1분 사주를 시작하세요.',
+  openGraph: {
+    type: 'website',
+    title: 'AI 사주 랩 | 무료 1분 사주 + MBTI 맞춤 해석',
+    description: '메인에서 바로 캐릭터 사주방을 선택하고 무료 1분 사주를 시작하세요.',
+    images: ['/characters/cheongun.webp'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI 사주 랩 | 무료 1분 사주 + MBTI 맞춤 해석',
+    description: '메인에서 바로 캐릭터 사주방을 선택하고 무료 1분 사주를 시작하세요.',
+    images: ['/characters/cheongun.webp'],
+  },
+};
 
 const PRODUCTS = [
   {

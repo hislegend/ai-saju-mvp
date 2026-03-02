@@ -34,8 +34,42 @@ const CATEGORY_META: Array<{ key: CategoryKey; icon: string; title: string; scor
 
 export async function generateMetadata({ params }: ResultPageProps) {
   const { readingId } = await params;
+
+  const reading = await prisma.reading.findUnique({
+    where: { id: readingId },
+    include: {
+      profile: true,
+      sections: true,
+    },
+  });
+
+  if (!reading) {
+    return {
+      title: 'AI 사주 결과',
+    };
+  }
+
+  const sectionMap = new Map(reading.sections.map((section) => [section.sectionType, section]));
+  const score = parseScore(sectionMap.get('SCORE')?.content ?? '{}');
+  const coreSummary = toSummaryLines(sectionMap.get('CORE')?.content ?? reading.previewText ?? '')[0] ??
+    'AI 사주 결과를 확인해보세요.';
+  const title = `${reading.profile.name}님의 AI 사주 결과 — 총운 ${Math.round(score.overall)}점`;
+
   return {
-    title: `AI 사주 결과 | ${readingId.slice(0, 8)}`,
+    title,
+    description: coreSummary,
+    openGraph: {
+      type: 'website',
+      title,
+      description: coreSummary,
+      images: [`/api/og?readingId=${readingId}`],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: coreSummary,
+      images: [`/api/og?readingId=${readingId}`],
+    },
   };
 }
 
@@ -305,7 +339,12 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
       <div className="result-bottom-fixed">
         <div className="result-bottom-shell">
-          <ShareButtons readingId={reading.id} />
+          <ShareButtons
+            readingId={reading.id}
+            userName={reading.profile.name}
+            score={score.overall}
+            coreSummary={toSummaryLines(coreText)[0] ?? coreText}
+          />
           <Link className="btn" href={`/premium/20022?readingId=${reading.id}`}>
             프리미엄 결과 보기 — 9,900원
           </Link>

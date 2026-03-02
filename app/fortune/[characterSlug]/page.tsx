@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { CharacterHero } from '@/components/fortune/character-hero';
 import { CharacterInfo } from '@/components/fortune/character-info';
@@ -56,7 +57,7 @@ const CHARACTER_MAP: Record<string, CharacterConfig> = {
   },
 };
 
-export async function generateMetadata({ params }: CharacterPageProps) {
+export async function generateMetadata({ params }: CharacterPageProps): Promise<Metadata> {
   const { characterSlug } = await params;
   const character = CHARACTER_MAP[characterSlug];
 
@@ -64,8 +65,24 @@ export async function generateMetadata({ params }: CharacterPageProps) {
     return { title: '사주방' };
   }
 
+  const title = `${character.name} 사주방 | AI 사주 랩`;
+  const description = `${character.specialty} 전문 사주 상담. 무료 1분 사주부터 프리미엄 해석까지.`;
+
   return {
-    title: `${character.name} 사주방`,
+    title,
+    description,
+    openGraph: {
+      type: 'website',
+      title,
+      description,
+      images: [character.image],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [character.image],
+    },
   };
 }
 

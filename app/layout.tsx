@@ -17,6 +17,7 @@ const headingFont = Noto_Serif_KR({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: {
     default: 'AI 사주 랩 | MBTI 맞춤 사주 리딩',
     template: '%s | AI 사주 랩',
