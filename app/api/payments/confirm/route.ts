@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const paymentResult = await confirmPayment(paymentKey, orderId, amount);
+    await confirmPayment(paymentKey, orderId, amount);
 
     // orderNumber로 Order 찾기
     const order = await prisma.order.findUnique({
