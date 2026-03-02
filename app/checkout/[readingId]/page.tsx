@@ -53,7 +53,7 @@ export default async function CheckoutPage({ params }: CheckoutPageProps) {
             결제 금액: <strong>{toKrw(amount)}원</strong> (부가세 포함)
           </div>
 
-          <TossPayButton />
+          <TossPayButton readingId={reading.id} amount={amount} orderName="프리미엄 사주 해석" />
 
           <Link className="btn-secondary" href={`/result/${reading.id}`}>
             무료 결과 미리보기 보기
