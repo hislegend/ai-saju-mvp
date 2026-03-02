@@ -7,6 +7,8 @@ import { CategoryCard } from '@/components/result/category-card';
 import { ScoreCircle } from '@/components/result/score-circle';
 import { ShareButtons } from '@/components/result/share-buttons';
 import { PdfDownloadButton } from '@/components/result/pdf-download-button';
+import { WarningSection } from '@/components/result/warning-section';
+import { PremiumToc } from '@/components/result/premium-toc';
 
 type ResultPageProps = {
   params: Promise<{ readingId: string }>;
@@ -261,6 +263,13 @@ export default async function ResultPage({ params }: ResultPageProps) {
           </div>
 
           {shouldBlurDetail ? (
+            <>
+              <WarningSection characterSlug={reading.productSlug} readingId={reading.id} />
+              <PremiumToc readingId={reading.id} />
+            </>
+          ) : null}
+
+          {shouldBlurDetail ? (
             <BlurSection title="월별 흐름">
               <div className="monthly-grid">
                 {Array.from({ length: 12 }).map((_, index) => (
@@ -343,8 +352,9 @@ export default async function ResultPage({ params }: ResultPageProps) {
             coreSummary={toSummaryLines(coreText)[0] ?? coreText}
           />
           <Link className="btn" href={`/premium/20022?readingId=${reading.id}`}>
-            프리미엄 결과 보기 — 9,900원
+            내 위험 시점과 대처법 받기 — 9,900원
           </Link>
+          <p className="price-anchor-text">1:1 사주 상담 5~20만원 대비, 리포트 9,900원</p>
         </div>
       </div>
     </>

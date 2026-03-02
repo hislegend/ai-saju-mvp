@@ -1602,3 +1602,151 @@ textarea {
   border-color: #D4A853 !important;
   box-shadow: 0 0 0 2px rgba(212, 168, 83, 0.15);
 }
+
+/* 경고등 섹션 */
+.warning-section {
+  background: linear-gradient(135deg, rgba(212, 168, 83, 0.08), rgba(139, 69, 19, 0.06));
+  border: 1px solid rgba(212, 168, 83, 0.3);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.warning-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.warning-lead {
+  font-size: 0.875rem;
+  color: #999;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.warning-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.warning-item {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  border-left: 3px solid #D4A853;
+}
+
+.warning-label {
+  font-size: 0.75rem;
+  color: #D4A853;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.warning-text {
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
+.warning-cta-text {
+  font-size: 0.85rem;
+  color: #D4A853;
+  text-align: center;
+  margin-top: 1.25rem;
+  font-weight: 500;
+}
+
+.warning-cta-btn {
+  display: block;
+  text-align: center;
+  margin-top: 0.75rem;
+  background: linear-gradient(135deg, #D4A853, #b8860b);
+  color: #1a1a2e;
+  font-weight: 700;
+  padding: 0.875rem;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+/* 프리미엄 목차 */
+.premium-toc-section {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.premium-toc-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.premium-toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.premium-toc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.premium-toc-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  width: 2rem;
+  text-align: center;
+}
+
+.premium-toc-text strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.premium-toc-text p {
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 0.125rem;
+  line-height: 1.4;
+}
+
+.premium-toc-cta {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.premium-toc-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #D4A853, #b8860b);
+  color: #1a1a2e;
+  font-weight: 700;
+  padding: 0.875rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+.premium-toc-anchor {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 0.5rem;
+}
+
+/* 하단 가격 앵커 */
+.price-anchor-text {
+  font-size: 0.7rem;
+  color: #999;
+  text-align: center;
+  margin-top: 0.25rem;
+}
