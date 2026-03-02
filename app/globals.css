@@ -1579,3 +1579,26 @@ textarea {
     color: #222 !important;
   }
 }
+
+/* MBTI 강조 스타일 */
+.fortune-mbti-highlight {
+  border: 1px solid rgba(212, 168, 83, 0.5);
+  border-radius: 12px;
+  padding: 1rem;
+  background: rgba(212, 168, 83, 0.06);
+}
+
+.mbti-badge {
+  font-size: 0.75rem;
+  color: #D4A853;
+  margin-left: 0.5rem;
+}
+
+.fortune-input-gold {
+  border-color: rgba(212, 168, 83, 0.4) !important;
+}
+
+.fortune-input-gold:focus {
+  border-color: #D4A853 !important;
+  box-shadow: 0 0 0 2px rgba(212, 168, 83, 0.15);
+}

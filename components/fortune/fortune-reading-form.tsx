@@ -123,6 +123,20 @@ export function FortuneReadingForm({ characterName, premiumProductSlug }: Fortun
         />
       </label>
 
+      <div className="fortune-mbti-highlight">
+        <label className="fortune-label">
+          MBTI <span className="mbti-badge">✨ 맞춤 해석 제공</span>
+          <select className="fortune-input fortune-input-gold" value={normalizedMbtiType} onChange={(event) => setMbtiType(event.target.value)}>
+            <option value="">MBTI를 선택하면 맞춤 해석이 추가됩니다</option>
+            {mbtiTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
       <label className="fortune-label">
         생년월일
         <input
@@ -197,17 +211,7 @@ export function FortuneReadingForm({ characterName, premiumProductSlug }: Fortun
         </label>
       </fieldset>
 
-      <label className="fortune-label">
-        MBTI
-        <select className="fortune-input" value={normalizedMbtiType} onChange={(event) => setMbtiType(event.target.value)}>
-          <option value="">모름</option>
-          {mbtiTypes.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-      </label>
+
 
       {error ? <p className="error">{error}</p> : null}
 
@@ -227,3 +231,4 @@ export function FortuneReadingForm({ characterName, premiumProductSlug }: Fortun
     </form>
   );
 }
+
