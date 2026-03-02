@@ -9,6 +9,7 @@ import { ShareButtons } from '@/components/result/share-buttons';
 import { PdfDownloadButton } from '@/components/result/pdf-download-button';
 import { WarningSection } from '@/components/result/warning-section';
 import { PremiumToc } from '@/components/result/premium-toc';
+import { UpgradeButton } from '@/components/result/upgrade-button';
 
 type ResultPageProps = {
   params: Promise<{ readingId: string }>;
@@ -351,9 +352,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
             score={score.overall}
             coreSummary={toSummaryLines(coreText)[0] ?? coreText}
           />
-          <Link className="btn" href={`/premium/20022?readingId=${reading.id}`}>
-            내 위험 시점과 대처법 받기 — 9,900원
-          </Link>
+          <UpgradeButton readingId={reading.id} />
           <p className="price-anchor-text">1:1 사주 상담 5~20만원 대비, 리포트 9,900원</p>
         </div>
       </div>
