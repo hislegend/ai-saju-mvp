@@ -20,7 +20,7 @@ export async function POST(
     // mode를 PREMIUM으로 업데이트
     await prisma.reading.update({
       where: { id: readingId },
-      data: { mode: 'PREMIUM' },
+      data: { mode: 'PREMIUM', status: 'COMPLETED' },
     });
 
     return NextResponse.json({ status: 'upgraded', readingId });
